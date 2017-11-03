@@ -1,6 +1,7 @@
 #include "EntityManager.h"
 #include "EntityBase.h"
 #include "Collider/Collider.h"
+#include "Projectile\Laser.h"
 
 #include <iostream>
 using namespace std;
@@ -177,7 +178,7 @@ bool EntityManager::CheckSphereCollision(EntityBase *ThisEntity, EntityBase *Tha
 	// if Radius of bounding sphere of ThisEntity plus Radius of bounding sphere of ThatEntity is
 	// greater than the disance squared between the 2 reference points of the 2 entities,
 	// then it could mean that there are colliding with each other.
-	if (DistanceSquaredBetween(thisMinAABB, thisMaxAABB) + DistanceSquaredBetween(thatMinAABB, thatMaxAABB) > DistanceSquaredBetween(ThisEntity->GetPosition(), ThatEntity->GetPosition()) * 2.0)
+	if (DistanceSquaredBetween(thisMinAABB, thisMaxAABB) + DistanceSquaredBetween(thatMinAABB, thatMaxAABB) > DistanceSquaredBetween(ThisEntity->GetPosition(), ThatEntity->GetPosition()))
 		return true;
 
 	return false;
@@ -227,6 +228,40 @@ bool EntityManager::CheckAABBCollision(EntityBase *ThisEntity, EntityBase *ThatE
 	return false;
 }
 
+// Check for intersection between a line segment and a plane
+bool EntityManager::GetIntersection(const float fDst1, const float fDst2, Vector3 P1, Vector3 P2, Vector3 &Hit)
+{
+	if (fDst1 * fDst2 >= 0.f)
+		return false;
+	if (fDst1 == fDst2)
+		return false;
+	Hit = P1 + (P2 - P1) * (-fDst1 / (fDst2 - fDst1));
+	return true;
+}
+
+// Check for intersection between a line segment and a plane
+bool EntityManager::CheckLineSegmentPlane(Vector3 line_start, Vector3 line_end, Vector3 minAABB, Vector3 maxAABB, Vector3 &Hit)
+{
+	if ((GetIntersection(line_start.x - minAABB.x, line_end.x - minAABB.x, line_start, line_end, Hit) && InBox(Hit, minAABB, maxAABB, 1))
+		|| (GetIntersection(line_start.y - minAABB.y, line_end.y - minAABB.y, line_start, line_end, Hit) && InBox(Hit, minAABB, maxAABB, 2))
+		|| (GetIntersection(line_start.z - minAABB.z, line_end.z - minAABB.z, line_start, line_end, Hit) && InBox(Hit, minAABB, maxAABB, 3))
+		|| (GetIntersection(line_start.x - maxAABB.x, line_end.x - maxAABB.x, line_start, line_end, Hit) && InBox(Hit, minAABB, maxAABB, 1))
+		|| (GetIntersection(line_start.y - maxAABB.y, line_end.y - maxAABB.y, line_start, line_end, Hit) && InBox(Hit, minAABB, maxAABB, 2))
+		|| (GetIntersection(line_start.z - maxAABB.z, line_end.z - maxAABB.z, line_start, line_end, Hit) && InBox(Hit, minAABB, maxAABB, 3)))
+		return true;
+
+	return false;
+}
+
+// Check two position are within a box region
+bool EntityManager::InBox(Vector3 Hit, Vector3 B1, Vector3 B2, const int Axis)
+{
+	if (Axis == 1 && Hit.z > B1.z && Hit.z < B2.z && Hit.y > B1.y && Hit.y < B2.y) return true;
+	if (Axis == 2 && Hit.z > B1.z && Hit.z < B2.z && Hit.x > B1.x && Hit.x < B2.x) return true;
+	if (Axis == 3 && Hit.x > B1.x && Hit.x < B2.x && Hit.y > B1.y && Hit.y < B2.y) return true;
+	return false;
+}
+
 // Check if any Collider is colliding with another Collider
 bool EntityManager::CheckForCollision(void)
 {
@@ -239,7 +274,39 @@ bool EntityManager::CheckForCollision(void)
 	{
 		// Add spartial partition codes here
 
-		if ((*colliderThis)->HasCollider())
+		// Check if this entity is a CLaser type
+		if ((*colliderThis)->GetIsLaser())
+		{
+			// Dyanmic cast it to a CLaser class
+			CLaser *thisEntity = dynamic_cast<CLaser*>(*colliderThis);
+
+			// Check for collision with another collider class
+			colliderThatEnd = entityList.end();
+			int counter = 0;
+			for (colliderThat = entityList.begin(); colliderThat != colliderThatEnd; ++colliderThat)
+			{
+				if (colliderThat == colliderThis)
+					continue;
+
+				if ((*colliderThat)->HasCollider())
+				{
+					Vector3 hitPosition;
+
+					// Get the minAABB and maxAABB for (*colliderThat)
+					CCollider *thatCollider = dynamic_cast<CCollider*>(*colliderThat);
+					Vector3 thatMinAABB = (*colliderThat)->GetPosition() + thatCollider->GetMinAABB();
+					Vector3 thatMaxAABB = (*colliderThat)->GetPosition() + thatCollider->GetMaxAABB();
+
+					if (CheckLineSegmentPlane(thisEntity->GetPosition(), thisEntity->GetPosition() - thisEntity->GetDirection() * thisEntity->GetLength(), thatMinAABB, thatMaxAABB, hitPosition))
+					{
+						(*colliderThis)->SetIsDone(true);
+						(*colliderThat)->SetIsDone(true);
+					}
+				}
+			}
+		}
+
+		else if ((*colliderThis)->HasCollider())
 		{
 			// This object was derived from a CCollider class, then it will have Collision Detection methods
 			// CCollider *thisCollider = dynamic_cast<CCollider*>(*colliderThis);
