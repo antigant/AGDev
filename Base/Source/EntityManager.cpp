@@ -4,6 +4,8 @@
 #include "Projectile\Laser.h"
 
 #include <iostream>
+#include "SceneGraph.h"
+
 using namespace std;
 
 // Update all entities
@@ -301,6 +303,14 @@ bool EntityManager::CheckForCollision(void)
 					{
 						(*colliderThis)->SetIsDone(true);
 						(*colliderThat)->SetIsDone(true);
+
+						// Remove from Scene Graph
+						if (CSceneGraph::GetInstance()->DeleteNode((*colliderThis)))
+							cout << "*** This Entity removed" << endl;
+
+						// Remove from Scene Graph
+						if (CSceneGraph::GetInstance()->DeleteNode((*colliderThat)))
+							cout << "*** That Entity removed" << endl;
 					}
 				}
 			}
