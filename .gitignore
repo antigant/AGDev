@@ -67,3 +67,6 @@ Base/Debug/Base.tlog/CL.command.1.tlog
 Base/Debug/Base.tlog/Base.lastbuildstate
 Base/Debug/Base.log
 Base/Debug/Application.obj
+Base/Debug/Transform.obj
+Base/Debug/SceneGraph.obj
+Base/Debug/SceneNode.obj
