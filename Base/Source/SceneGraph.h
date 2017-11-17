@@ -15,6 +15,11 @@ public:
 	CSceneGraph(void);
 	virtual ~CSceneGraph();
 
+	// Update the Scene Graph
+	void Update(void);
+	// Render the Scene Graph
+	void Render(void);
+
 	void Destroy();
 
 	//Get the root of this Scene Graph

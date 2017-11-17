@@ -13,6 +13,19 @@ CSceneGraph::~CSceneGraph()
 {
 }
 
+// Update the Scene Graph
+void CSceneGraph::Update(void)
+{
+	theRoot->Update();
+}
+
+// Render the Scene Graph
+void CSceneGraph::Render(void)
+{
+	theRoot->Render();
+}
+
+
 void CSceneGraph::Destroy()
 {
 	if (theRoot)

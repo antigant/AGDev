@@ -5,12 +5,18 @@
 using namespace std;
 
 #include "EntityBase.h"
+#include "Transform.h"
 
-class CSceneNode
+class CSceneNode : public CTransform
 {
 public:
 	CSceneNode(void);
 	virtual ~CSceneNode();
+
+	// Update the Scene Graph
+	void Update(void);
+	// Render the Scene Graph
+	void Render(void);
 
 	//Release all memory for this node and its children
 	void Destroy(void);

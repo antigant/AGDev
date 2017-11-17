@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "SceneGraph.h"
+#include "GraphicsManager.h"
 
 CSceneNode::CSceneNode(void)
 	: ID(-1)
@@ -12,6 +13,40 @@ CSceneNode::CSceneNode(void)
 }
 CSceneNode::~CSceneNode()
 {
+}
+
+// Update the Scene Graph
+void CSceneNode::Update(void)
+{
+	// Update the Transformation between this node and its children
+	if (theUpdateTransformation)
+		ApplyTransform(GetUpdateTransform());
+
+	// Update the children
+	std::vector<CSceneNode*>::iterator it;
+	for (it = theChildren.begin(); it != theChildren.end(); ++it)
+		(*it)->Update();
+}
+
+// Render the Scene Graph
+void CSceneNode::Render(void)
+{
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	
+	// theEntity is not NULL / contains an address
+	if (theEntity)
+	{
+		modelStack.MultMatrix(this->GetTransform());
+
+		// Render the entity
+		theEntity->Render();
+	}
+	std::vector<CSceneNode*>::iterator it;
+	for (it = theChildren.begin(); it != theChildren.end(); ++it)
+		(*it)->Render();
+
+	modelStack.PopMatrix();
 }
 
 //Release all memory for this node and its children

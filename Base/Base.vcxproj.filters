@@ -28,6 +28,9 @@
     <Filter Include="SceneGraph">
       <UniqueIdentifier>{46bc74ef-f09e-4e16-89f3-710eaf137918}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneGraph\Transform">
+      <UniqueIdentifier>{cb4f01c2-0681-4dea-a1f1-10cc347fa03f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -90,6 +93,12 @@
     <ClCompile Include="Source\SceneNode.cpp">
       <Filter>SceneGraph</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UpdateTransformation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -148,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="Source\SceneNode.h">
       <Filter>SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Transform.h">
+      <Filter>SceneGraph\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UpdateTransformation.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
