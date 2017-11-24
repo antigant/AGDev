@@ -31,6 +31,9 @@
     <Filter Include="SceneGraph\Transform">
       <UniqueIdentifier>{cb4f01c2-0681-4dea-a1f1-10cc347fa03f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SpatialPartition">
+      <UniqueIdentifier>{e6a0de9f-e2d3-495a-81ca-a91c724a22e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -99,6 +102,18 @@
     <ClCompile Include="Source\UpdateTransformation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Projectile\Grenade.cpp">
+      <Filter>Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WeaponInfo\GrenadeThrow.cpp">
+      <Filter>WeaponInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpatialPartition\Grid.cpp">
+      <Filter>SpatialPartition</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpatialPartition\SpatialPartition.cpp">
+      <Filter>SpatialPartition</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -163,6 +178,18 @@
     </ClInclude>
     <ClInclude Include="Source\UpdateTransformation.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile\Grenade.h">
+      <Filter>Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WeaponInfo\GrenadeThrow.h">
+      <Filter>WeaponInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpatialPartition\Grid.h">
+      <Filter>SpatialPartition</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpatialPartition\SpatialPartition.h">
+      <Filter>SpatialPartition</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

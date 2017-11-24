@@ -7,6 +7,7 @@
 #include "../Projectile/Projectile.h"
 #include "../WeaponInfo/Pistol.h"
 #include "../WeaponInfo/LaserBlaster.h"
+#include "../WeaponInfo/GrenadeThrow.h"
 
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
@@ -65,7 +66,9 @@ void CPlayerInfo::Init(void)
 	primaryWeapon->Init();
 
 	// Set the laser blaster as the secondary weapon
-	secondaryWeapon = new CLaserBlaster();
+	//secondaryWeapon = new CLaserBlaster();
+	//secondaryWeapon->Init();
+	secondaryWeapon = new CGrenadeThrow();
 	secondaryWeapon->Init();
 }
 
@@ -206,6 +209,12 @@ Vector3 CPlayerInfo::GetUp(void) const
 double CPlayerInfo::GetJumpAcceleration(void) const
 {
 	return m_dJumpAcceleration;
+}
+
+//Get the terrain for the player info
+GroundEntity * CPlayerInfo::GetTerrain(void)
+{
+	return m_pTerrain;
 }
 
 // Update Jump Upwards
