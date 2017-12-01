@@ -8,6 +8,8 @@ using namespace std;
 //Include GLEW
 #include <GL/glew.h>
 
+#include "../LevelOfDetails.h"
+
 class Mesh;
 
 class CGrid
@@ -27,6 +29,9 @@ protected:
 
 	// List of objects in this grid
 	vector<EntityBase*> ListOfObjects;
+
+	// The level of detail for this Grid
+	CLevelOfDetails::DETAIL_LEVEL theDetailLevel;
 
 public:
 	// Constructor
@@ -61,6 +66,9 @@ public:
 
 	// Get list of objects in this grid
 	vector<EntityBase*> GetListOfObject(void);
+
+	// Set the Level of Detail for objects in this CGrid
+	void SetDetailLevel(const CLevelOfDetails::DETAIL_LEVEL theDetailLevel);
 
 	// PrintSelf
 	void PrintSelf();

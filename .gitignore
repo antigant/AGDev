@@ -70,3 +70,9 @@ Base/Debug/Application.obj
 Base/Debug/Transform.obj
 Base/Debug/SceneGraph.obj
 Base/Debug/SceneNode.obj
+Base/Debug/UpdateTransformation.obj
+Base/Debug/SpatialPartition.obj
+Base/Debug/LevelOfDetails.obj
+Base/Debug/Grid.obj
+Base/Debug/GrenadeThrow.obj
+Base/Debug/Grenade.obj
