@@ -159,6 +159,10 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_BOTTOM")->textureID = LoadTGA("Image//SkyBox//skybox_bottom.tga");
 	MeshBuilder::GetInstance()->GenerateRay("laser", 10.f);
 
+	// Initialise the enemy
+	theEnemy = new CEnemy();
+	theEnemy->Init();
+
 	//Set up the Spatial Partition and pass it to the entityManager to manage
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
@@ -223,6 +227,7 @@ void SceneText::Init()
 	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
+	theEnemy->SetTerrain(groundEntity);
 	
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
