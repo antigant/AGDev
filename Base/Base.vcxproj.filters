@@ -40,6 +40,9 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{3f507827-fde6-4b7f-a3a9-e79f878586a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test Dummy">
+      <UniqueIdentifier>{9412b01e-1f3d-4de1-bb8b-93715767e8b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -126,6 +129,9 @@
     <ClCompile Include="Source\Enemy.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Test Dummy\Dummy.cpp">
+      <Filter>Test Dummy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -208,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="Source\Enemy.h">
       <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Test Dummy\Dummy.h">
+      <Filter>Test Dummy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
