@@ -40,8 +40,13 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{3f507827-fde6-4b7f-a3a9-e79f878586a9}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Test Dummy">
       <UniqueIdentifier>{9412b01e-1f3d-4de1-bb8b-93715767e8b0}</UniqueIdentifier>
+=======
+    <Filter Include="Particles">
+      <UniqueIdentifier>{fabdf230-fc65-4b4c-9300-0ace68fa610e}</UniqueIdentifier>
+>>>>>>> 1f15117b60f806074f6b667939cc4cef6df71576
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,8 +134,13 @@
     <ClCompile Include="Source\Enemy.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\Test Dummy\Dummy.cpp">
       <Filter>Test Dummy</Filter>
+=======
+    <ClCompile Include="Source\ParticlesGenerator.cpp">
+      <Filter>Particles</Filter>
+>>>>>>> 1f15117b60f806074f6b667939cc4cef6df71576
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,8 +225,16 @@
     <ClInclude Include="Source\Enemy.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\Test Dummy\Dummy.h">
       <Filter>Test Dummy</Filter>
+=======
+    <ClInclude Include="Source\ParticlesGenerator.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Particles.h">
+      <Filter>Particles</Filter>
+>>>>>>> 1f15117b60f806074f6b667939cc4cef6df71576
     </ClInclude>
   </ItemGroup>
 </Project>

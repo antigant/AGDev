@@ -66,9 +66,9 @@ void CPlayerInfo::Init(void)
 	primaryWeapon->Init();
 
 	// Set the laser blaster as the secondary weapon
-	secondaryWeapon = new CLaserBlaster();
+	//secondaryWeapon = new CLaserBlaster();
 	//secondaryWeapon->Init();
-	//secondaryWeapon = new CGrenadeThrow();
+	secondaryWeapon = new CGrenadeThrow();
 	secondaryWeapon->Init();
 }
 
