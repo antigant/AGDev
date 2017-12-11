@@ -131,12 +131,12 @@ void CSpatialPartition::Update(void)
 				if (distance < LevelOfDetails_Distances[0])
 				{
 					theGrid[i * zNumOfGrid + j].SetDetailLevel(CLevelOfDetails::HIGH_DETAILS);
-					cout << "High Details" << endl;
+					//cout << "High Details" << endl;
 				}
  				else if (distance < LevelOfDetails_Distances[1])
 				{
 					theGrid[i * zNumOfGrid + j].SetDetailLevel(CLevelOfDetails::MID_DETAILS);
-					cout << "Mid Details" << endl;
+					//cout << "Mid Details" << endl;
 
 				}
 				else
