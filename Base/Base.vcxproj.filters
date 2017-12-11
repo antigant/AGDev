@@ -40,6 +40,9 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{3f507827-fde6-4b7f-a3a9-e79f878586a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{fabdf230-fc65-4b4c-9300-0ace68fa610e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -126,6 +129,9 @@
     <ClCompile Include="Source\Enemy.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ParticlesGenerator.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -208,6 +214,12 @@
     </ClInclude>
     <ClInclude Include="Source\Enemy.h">
       <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParticlesGenerator.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Particles.h">
+      <Filter>Particles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

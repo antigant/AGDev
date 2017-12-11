@@ -169,6 +169,8 @@ void SceneText::Init()
 	CSpatialPartition::GetInstance()->SetLevelOfDetails(40000.0f,160000.0f);
 	//CSpatialPartition::GetInstance()->SetLevelOfDetails(20.0f, 80.0f);
 	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
+	MeshBuilder::GetInstance()->GenerateCube("cubea", Color(1.0f, 1.0f, 1.0f), 1.0f);
+	CSpatialPartition::GetInstance()->SetMesh("cubea");
 	
 	// Create entities into the scene
 	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.f, 0.64f, 0.f), 1.f);
