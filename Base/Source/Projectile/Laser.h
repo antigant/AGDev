@@ -22,10 +22,12 @@ public:
 	void Update(double dt = 0.0333f);
 	// Render this projectile
 	void Render(void);
+
 private:
 	float m_fLength;
 	float angle_x, angle_y, angle_z;
 };
+
 
 namespace Create
 {

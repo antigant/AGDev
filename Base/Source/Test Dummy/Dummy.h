@@ -1,13 +1,13 @@
 #pragma once
 //#include "EntityBase.h"
-#include "../SceneGraph.h"
+//#include "../SceneGraph.h"
 #include <string>
 using namespace std;
 
 
 class Mesh;
 
-class TestDummy: public CSceneGraph
+class TestDummy
 {
 public:
 	TestDummy();
@@ -21,6 +21,7 @@ public:
 	string GetName()const;
 	void SetID(const int ID);
 	int GetID()const;
+	
 private:
 	string name;
 	int ID;

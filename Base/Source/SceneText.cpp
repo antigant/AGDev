@@ -177,6 +177,7 @@ void SceneText::Init()
 
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
+	
 	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 0.0f, -20.0f));
 	aCube->SetCollider(true);
 	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
@@ -192,54 +193,93 @@ void SceneText::Init()
 	CSceneNode* anotherNode = theNode->AddChild(anotherCube);
 	if (anotherNode == NULL)
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-
+	//-----------------------------------------------------------------------------------------------------
 	// Scene Graph topic 2nd week -> for applying transformation
+	GenericEntity *baseCube = Create::Asset("cube", Vector3(0.f, 0.f, 0.f));
+	CSceneNode *baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 
-	//GenericEntity *baseCube = Create::Asset("cube", Vector3(0.f, 0.f, 0.f));
-	//CSceneNode *baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
+	CUpdateTransformation *baseMtx = new CUpdateTransformation();
+	baseMtx->ApplyUpdate(0.01f, 0.0f, 0.0f);
+	baseMtx->SetSteps(-30, 30);
+	baseNode->SetUpdateTransformation(baseMtx);
 
-	//CUpdateTransformation *baseMtx = new CUpdateTransformation();
-	//baseMtx->ApplyUpdate(0.01f, 0.0f, 0.0f);
-	//baseMtx->SetSteps(-30, 30);
-	//baseNode->SetUpdateTransformation(baseMtx);
+	GenericEntity *childCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
+	CSceneNode *childNode = baseNode->AddChild(childCube);
+	childNode->ApplyTranslate(0.f, 1.f, 0.f);
 
-	//GenericEntity *childCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
-	//CSceneNode *childNode = baseNode->AddChild(childCube);
-	//childNode->ApplyTranslate(0.f, 1.f, 0.f);
-
-	//GenericEntity *grandchildCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
-	//CSceneNode *grandchildNode = childNode->AddChild(grandchildCube);
-	//grandchildNode->ApplyTranslate(0.f, 0.f, 1.f);
-	//CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
-	//aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.f);
-	//aRotateMtx->SetSteps(-120, 60);
-	//grandchildNode->SetUpdateTransformation(aRotateMtx);
-
-	//***************************Dummy Entity
-
-	GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
-	DummyHead->SetCollider(true);
-	DummyHead->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
-	DummyHNode->ApplyTranslate(0.f, 10.f, 0.f);
-	GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
-	DummyBNode->ApplyTranslate(0.f, -1.f, 0.f);
-	GenericEntity *Dummy_leftarm = Create::Asset("Dummy_arm", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *DummyLANode = DummyBNode->AddChild(Dummy_leftarm);
-	DummyLANode->ApplyTranslate(-1.f, 0.f, 0.f);
-	GenericEntity *Dummy_rightarm = Create::Asset("Dummy_arm", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *DummyRANode = DummyBNode->AddChild(Dummy_rightarm);
-	DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
+	GenericEntity *grandchildCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
+	CSceneNode *grandchildNode = childNode->AddChild(grandchildCube);
+	grandchildNode->ApplyTranslate(0.f, 0.f, 1.f);
 	CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
+	aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.f);
+	aRotateMtx->SetSteps(-120, 60);
+	grandchildNode->SetUpdateTransformation(aRotateMtx);
+	//***********************************************************************************Dummy Entity
+
+	//GenericEntity *DummyHead = Create::Entity("Dummy_head", Vector3(0.f, 10.f, 0.f));
+	//CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
+	//DummyHNode->ApplyTranslate(0.f, 10.f, 0.f);
+	//DummyHead->SetCollider(true);
+	//DummyHead->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//GenericEntity *DummyBody = Create::Entity("Dummy_body", Vector3(0.f, 5.0f, 0.f));
+	//CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
+	//DummyBNode->ApplyTranslate(0.f, -1.1f, 0.f);
+	//DummyBody->SetCollider(true);
+	//DummyBody->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	////GenericEntity *Dummy_leftarm = Create::Entity("Dummy_arm", Vector3(0.f, 0.f, 0.f));
+	////CSceneNode *DummyLANode = DummyBNode->AddChild(Dummy_leftarm);
+	////DummyLANode->ApplyTranslate(-1.f, 0.f, 0.f);
+	////GenericEntity *Dummy_rightarm = Create::Entity("Dummy_arm", Vector3(0.f, 0.f, 0.f));
+	////CSceneNode *DummyRANode = DummyBNode->AddChild(Dummy_rightarm);
+	////DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
+	//CUpdateTransformation *aanotherRotateMtx = new CUpdateTransformation();
+	//aanotherRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
+	//aanotherRotateMtx->SetSteps(-120, 60);
+	////DummyRANode->SetUpdateTransformation(aRotateMtx);
+	//DummyBNode->SetUpdateTransformation(aanotherRotateMtx);
+
+
+	GenericEntity *HeadDummycube = Create::Entity("cube", Vector3(-10.0f, 1.1f, -20.0f));
+	HeadDummycube->SetCollider(true);
+	HeadDummycube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode *HeadDummyNode = CSceneGraph::GetInstance()->AddNode(HeadDummycube);
+
+	GenericEntity *BodyDummyCube = Create::Entity("cube", Vector3(-10.0f, 0.0f , -20.0f));
+	BodyDummyCube->SetCollider(true);
+	BodyDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode* BodyDummyNode = HeadDummyNode->AddChild(BodyDummyCube);
+	
+	GenericEntity *RightArmDummyCube = Create::Entity("cube", Vector3(-11.1f, 0.0f, -20.0f));
+	RightArmDummyCube->SetCollider(true);
+	RightArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode *RightArmDummyNode = BodyDummyNode->AddChild(RightArmDummyCube);
+
+	GenericEntity *LeftArmDummyCube = Create::Entity("cube", Vector3(-8.9f, 0.0f, -20.0f));
+	LeftArmDummyCube->SetCollider(true);
+	LeftArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode *LeftArmDummyNode = BodyDummyNode->AddChild(LeftArmDummyCube);
+
+	//GenericEntity* DummyB = Create::Entity("cube", Vector3(-20.0f, -1.1f, -20.0f));
+	//DummyB->SetCollider(true);
+	//DummyB->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//CSceneNode *DummyBN = DummyN->AddChild(DummyB);
+	//GenericEntity *DummyL = Create::Entity("Dummy_arm", Vector3(-21.0f, -1.1f, -20.0f));
+	//DummyL->SetCollider(true);
+	//DummyL->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//CSceneNode *DummyLN = DummyBN->AddChild(DummyL);
+	//
+	//GenericEntity *DummyR = Create::Entity("Dummy_arm", Vector3(-19.0f,-1.1f, -20.0f));
+	//DummyR->SetCollider(true);
+	//DummyR->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//CSceneNode *DummyRN = DummyBN->AddChild(DummyR);
+	//DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
+	/*CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
 	aRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
 	aRotateMtx->SetSteps(-120, 60);
-	DummyRANode->SetUpdateTransformation(aRotateMtx);
+	DummyRANode->SetUpdateTransformation(aRotateMtx);*/
 	//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
 	//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
 
-	
-	
 	//**************************
 	// Initialise the enemy
 	theEnemy = new CEnemy();
@@ -276,7 +316,10 @@ void SceneText::Update(double dt)
 {
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
+	/*if (true)
+	{
 
+	}*/
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
 	if(KeyboardController::GetInstance()->IsKeyDown('1'))
 		glEnable(GL_CULL_FACE);
@@ -363,9 +406,10 @@ void SceneText::Update(double dt)
 		//CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
 		//CSceneGraph::GetInstance()->GetRoot()->DetachChild(weapon);
 		
-		/*GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
+		GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
 		CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
-		DummyHNode->ApplyTranslate(0.f, 10.f, 0.f);
+		//Math::RandFloatMinMax()
+		DummyHNode->ApplyTranslate(0.0f, 10.f, 0.f);
 		GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
 		CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
 		DummyBNode->ApplyTranslate(0.f, -1.f, 0.f);
@@ -378,7 +422,7 @@ void SceneText::Update(double dt)
 		CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
 		aRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
 		aRotateMtx->SetSteps(-120, 60);
-		DummyRANode->SetUpdateTransformation(aRotateMtx);*/
+		DummyRANode->SetUpdateTransformation(aRotateMtx);
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('X'))
 	{
