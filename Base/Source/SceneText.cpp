@@ -224,26 +224,9 @@ void SceneText::Init()
 
 	//***************************Dummy Entity
 
-	/*GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
-	DummyHNode->ApplyTranslate(0.f, 10.f, 0.f);
-	GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
-	DummyBNode->ApplyTranslate(0.f, -1.f, 0.f);
-	GenericEntity *Dummy_leftarm = Create::Asset("Dummy_arm", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *DummyLANode = DummyBNode->AddChild(Dummy_leftarm);
-	DummyLANode->ApplyTranslate(-1.f, 0.f, 0.f);
-	GenericEntity *Dummy_rightarm = Create::Asset("Dummy_arm", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *DummyRANode = DummyBNode->AddChild(Dummy_rightarm);
-	DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
-	CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
-	aRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
-	aRotateMtx->SetSteps(-120, 60);
-	DummyRANode->SetUpdateTransformation(aRotateMtx);
-	GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
-*/
 	GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
+	DummyHead->SetCollider(true);
+	DummyHead->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 	CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
 	DummyHNode->ApplyTranslate(0.f, 10.f, 0.f);
 	GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
@@ -259,9 +242,11 @@ void SceneText::Init()
 	aRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
 	aRotateMtx->SetSteps(-120, 60);
 	DummyRANode->SetUpdateTransformation(aRotateMtx);
-	GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
+	//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
+	//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
 
+	
+	
 	//**************************
 	// Initialise the enemy
 	theEnemy = new CEnemy();
@@ -366,6 +351,57 @@ void SceneText::Update(double dt)
 	{
 	//*weaponRNode = DummyRANode->AddChild(weapon);
 		//CSceneGraph ->GetRoot();
+	/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
+		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
+		CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
+
+	}
+	if (KeyboardController::GetInstance()->IsKeyReleased('V'))
+	{
+		//*weaponRNode = DummyRANode->AddChild(weapon);
+		//CSceneGraph ->GetRoot();
+		/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
+		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
+		//CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
+		//CSceneGraph::GetInstance()->GetRoot()->DetachChild(weapon);
+		
+		/*GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
+		CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
+		DummyHNode->ApplyTranslate(0.f, 10.f, 0.f);
+		GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
+		CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
+		DummyBNode->ApplyTranslate(0.f, -1.f, 0.f);
+		GenericEntity *Dummy_leftarm = Create::Asset("Dummy_arm", Vector3(0.f, 0.f, 0.f));
+		CSceneNode *DummyLANode = DummyBNode->AddChild(Dummy_leftarm);
+		DummyLANode->ApplyTranslate(-1.f, 0.f, 0.f);
+		GenericEntity *Dummy_rightarm = Create::Asset("Dummy_arm", Vector3(0.f, 0.f, 0.f));
+		CSceneNode *DummyRANode = DummyBNode->AddChild(Dummy_rightarm);
+		DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
+		CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
+		aRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
+		aRotateMtx->SetSteps(-120, 60);
+		DummyRANode->SetUpdateTransformation(aRotateMtx);*/
+	}
+	if (KeyboardController::GetInstance()->IsKeyReleased('X'))
+	{
+		//*weaponRNode = DummyRANode->AddChild(weapon);
+		//CSceneGraph ->GetRoot();
+		/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
+		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
+		//CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
+		//CSceneGraph::GetInstance()->GetRoot()->DetachChild(weapon);
+		
+		//CSceneNode *weaponRNode = CSceneGraph::GetInstance()->AddNode(weapon);
+		//cout << CSceneGraph::GetInstance()<< endl;
+		//CSceneGraph::GetInstance()->GetNode(Dummy_rightarm)->DeleteChild(weapon);
+		//CSceneGraph::GetInstance()->GetNode(weapon)->Destroy();
+		//CSceneGraph::GetInstance()->DeleteNode(*weapon);
+
+		//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
+		//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
+
+
+
 	}
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);

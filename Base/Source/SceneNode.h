@@ -25,7 +25,7 @@ public:
 	void SetID(const int ID);
 	//Get the ID for this node
 	int GetID(void) const;
-
+	
 	//Set the entity for this node
 	bool SetEntity(EntityBase *theEntity);
 	//Get the ID for this node
