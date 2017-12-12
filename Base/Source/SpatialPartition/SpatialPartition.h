@@ -21,6 +21,9 @@ protected:
 	int zGridSize;
 	int xNumOfGrid;
 	int zNumOfGrid;
+	int m_noGrid;		   // constant value
+	int gridOffset;		   // constant value
+	int gridSize;		   // constant value
 	float yOffset;
 	std::string _meshName; // Name of the mesh
 
@@ -49,8 +52,8 @@ public:
 	~CSpatialPartition(void);
 
 	// Initialise the spatial partition
-	bool Init(	const int xGridSize, const int zGridSize, 
-				const int xNumOfGrid, const int zNumOfGrid, 
+	bool Init(	const int terrainSizeX, const int terrainSizeZ, const int m_noGrid, 
+				const int xNumOfGrid = 0, const int zNumOfGrid = 0, 
 				const float yOffset = -9.9f);
 
 	// Set a particular grid's Mesh

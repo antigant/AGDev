@@ -1,6 +1,6 @@
 #pragma once
-#include "RenderHelper.h"
-#include "GraphicsManager.h"
+#include <vector>
+#include "Particles.h"
 
 class Mesh;
 
@@ -12,6 +12,8 @@ private:
 
 	//Mesh *particles;
 	double spawnTime, fixSpawnTime;
+	std::vector<CParticles*> particlesContainer;
+	int spawnCount, maxParticles;
 
 public:
 	static CParticlesGenerator *GetInstance()
@@ -25,7 +27,7 @@ public:
 		if (instance)
 		{
 			delete instance;
-			instance = NULL;
+			instance = nullptr;
 			return true;
 		}
 		return false;
@@ -35,6 +37,8 @@ public:
 	//// Set particle mesh
 	//void SetParticles(Mesh *particles);
 
+	// Init the generator
+	void Init(void);
 	// Update the particles
 	void Update(double dt = 0.0333);
 	// Render the particles

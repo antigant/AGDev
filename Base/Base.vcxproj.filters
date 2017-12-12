@@ -142,6 +142,9 @@
       <Filter>Particles</Filter>
 >>>>>>> 1f15117b60f806074f6b667939cc4cef6df71576
     </ClCompile>
+    <ClCompile Include="Source\Particles.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
