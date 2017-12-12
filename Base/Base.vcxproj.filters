@@ -132,6 +132,9 @@
     <ClCompile Include="Source\ParticlesGenerator.cpp">
       <Filter>Particles</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Particles.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">

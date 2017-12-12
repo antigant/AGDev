@@ -19,9 +19,12 @@ public:
 	void CalculateAngles(void);
 
 	// Update the status of this projectile
-	void Update(double dt = 0.0333f);
+	virtual void Update(double dt = 0.0333f);
 	// Render this projectile
-	void Render(void);
+	virtual void Render(void);
+
+	virtual void SetIsDone(const bool _value);
+
 private:
 	float m_fLength;
 	float angle_x, angle_y, angle_z;
