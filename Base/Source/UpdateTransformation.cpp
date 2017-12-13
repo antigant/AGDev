@@ -50,6 +50,12 @@ void CUpdateTransformation::ApplyUpdateScale(const float sx, const float sy, con
 	Update_Mtx_REVERSED.SetToScale(sx, sy, sz);
 }
 
+void CUpdateTransformation::SetStarttoEnd(const int startStep, const int endStep)
+{
+	this->startstep = startStep;
+	this->endstep = endStep;
+}
+
 // Set the minSteps and maxSteps
 void CUpdateTransformation::SetSteps(const int minSteps, const int maxSteps)
 {
