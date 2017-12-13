@@ -163,6 +163,23 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateCube("Dummy_body", Color(0, 1, 0), 1.f);
 	MeshBuilder::GetInstance()->GenerateCube("Dummy_arm", Color(0, 0, 1), 1.f);
 
+	// FOR ASSIGNMENT
+	MeshBuilder::GetInstance()->GenerateOBJ("rock1", "OBJ//rock1.obj");
+	MeshBuilder::GetInstance()->GenerateOBJ("rock2", "OBJ//rock2.obj");
+	MeshBuilder::GetInstance()->GenerateOBJ("rock3", "OBJ//rock3.obj");
+	MeshBuilder::GetInstance()->GenerateOBJ("tree1", "OBJ//tree1.obj");
+	MeshBuilder::GetInstance()->GetMesh("tree1")->textureID = LoadTGA("Image//tree.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("tree2", "OBJ//tree2.obj");
+	MeshBuilder::GetInstance()->GetMesh("tree2")->textureID = LoadTGA("Image//tree.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("tree3", "OBJ//tree3.obj");
+	MeshBuilder::GetInstance()->GetMesh("tree3")->textureID = LoadTGA("Image//tree.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("elephant1", "OBJ//elephant1.obj");
+	MeshBuilder::GetInstance()->GetMesh("elephant1")->textureID = LoadTGA("Image//elephant.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("elephant2", "OBJ//elephant2.obj");
+	MeshBuilder::GetInstance()->GetMesh("elephant2")->textureID = LoadTGA("Image//elephant.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("elephant3", "OBJ//elephant3.obj");
+	MeshBuilder::GetInstance()->GetMesh("elephant3")->textureID = LoadTGA("Image//elephant.tga");
+
 	// Customise the ground entity
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 	groundEntity->SetPosition(Vector3(0, -10, 0));
@@ -179,6 +196,21 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateCube("cubea", Color(1.0f, 1.0f, 1.0f), 1.0f);
 	CSpatialPartition::GetInstance()->SetMesh("cubea");
 	
+	GenericEntity *rock = Create::Entity("rock1", Vector3(-20.f, -10.f, 50.f), Vector3(4.f, 4.f, 4.f));
+	rock->SetCollider(true);
+	rock->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
+	rock->InitLOD("rock1", "rock2", "rock3");
+
+	GenericEntity *tree = Create::Entity("tree1", Vector3(30, -10.f, 10.f), Vector3(4.f, 4.f, 4.f));
+	tree->SetCollider(true);
+	tree->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
+	tree->InitLOD("tree1", "tree2", "tree3");
+
+	GenericEntity *elephant = Create::Entity("elephant1", Vector3(-40.f, -10.f, -20.f), Vector3(5.f, 5.f, 5.f));
+	elephant->SetCollider(true);
+	elephant->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
+	elephant->InitLOD("elephant1", "elephant2", "elephant3");
+
 	// Create entities into the scene
 	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.f, 0.64f, 0.f), 1.f);
 

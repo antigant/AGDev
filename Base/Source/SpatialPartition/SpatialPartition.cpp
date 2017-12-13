@@ -200,7 +200,7 @@ void CSpatialPartition::Render(Vector3* theCameraPosition)
 	//modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
-	modelStack.Translate(gridOffset + gridX * xGridSize, -5.f, gridOffset + gridZ * zGridSize);
+	modelStack.Translate(gridX * xGridSize - (xGridSize >> 1), -5.f, gridZ * zGridSize - (zGridSize >> 1));
 	//modelStack.Translate(xIndex * xGridSize - (xSize >> 1), -5.f, zIndex * zGridSize - (zSize >> 1));
 	modelStack.Scale(xGridSize, 1.f, zGridSize);
 	//theGrid[xIndex * zNumOfGrid + zIndex].Render();
