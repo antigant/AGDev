@@ -4,7 +4,7 @@
 class CUpdateTransformation
 {
 protected:
-	int curSteps, deltaSteps, minSteps, maxSteps;
+	int curSteps, deltaSteps, minSteps, maxSteps, startstep, endstep;
 	Mtx44 Update_Mtx, Update_Mtx_REVERSED;
 
 public:
@@ -23,6 +23,8 @@ public:
 	// Apply a scale to the Update Transformation Matrix
 	void ApplyUpdateScale(const float sx, const float sy, const float sz);
 
+	
+	void SetStarttoEnd(const int startStep, const int endStep);
 	// Set the minSteps and maxSteps
 	void SetSteps(const int minSteps, const int maxSteps);
 	// Get the minSteps and maxSteps

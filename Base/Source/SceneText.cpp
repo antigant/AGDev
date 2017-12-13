@@ -411,7 +411,13 @@ void SceneText::Update(double dt)
 		GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
 		CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
 		//Math::RandFloatMinMax()
-		DummyHNode->ApplyTranslate(0.0f, 10.f, 0.f);
+		CUpdateTransformation *mix = new CUpdateTransformation();
+		mix->ApplyUpdate(0, 0.1f, 0);
+		
+		mix->SetSteps(0, 100);
+		DummyHNode->SetUpdateTransformation(mix);
+		
+		//DummyHNode->ApplyTranslate(0.0f, 10.f, 0.f);
 		GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
 		CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
 		DummyBNode->ApplyTranslate(0.f, -1.f, 0.f);
@@ -428,6 +434,8 @@ void SceneText::Update(double dt)
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('X'))
 	{
+		int entityposX = Math::RandIntMinMax(-40, 40);
+		int entityposZ = Math::RandIntMinMax(-40, 40);
 		//*weaponRNode = DummyRANode->AddChild(weapon);
 		//CSceneGraph ->GetRoot();
 		/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
@@ -444,6 +452,25 @@ void SceneText::Update(double dt)
 		//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
 		//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
 
+		GenericEntity *HeadDummycube = Create::Entity("cube", Vector3(entityposX, 1.1f, entityposZ));
+		HeadDummycube->SetCollider(true);
+		HeadDummycube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+		CSceneNode *HeadDummyNode = CSceneGraph::GetInstance()->AddNode(HeadDummycube);
+
+		GenericEntity *BodyDummyCube = Create::Entity("cube", Vector3(entityposX, 0.0f, entityposZ));
+		BodyDummyCube->SetCollider(true);
+		BodyDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+		CSceneNode* BodyDummyNode = HeadDummyNode->AddChild(BodyDummyCube);
+
+		GenericEntity *RightArmDummyCube = Create::Entity("cube", Vector3(entityposX -1.1f, 0.0f, entityposZ));
+		RightArmDummyCube->SetCollider(true);
+		RightArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+		CSceneNode *RightArmDummyNode = BodyDummyNode->AddChild(RightArmDummyCube);
+
+		GenericEntity *LeftArmDummyCube = Create::Entity("cube", Vector3(entityposX+1.1f, 0.0f, entityposZ));
+		LeftArmDummyCube->SetCollider(true);
+		LeftArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+		CSceneNode *LeftArmDummyNode = BodyDummyNode->AddChild(LeftArmDummyCube);
 
 
 	}
