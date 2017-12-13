@@ -6,6 +6,7 @@
 #include "RenderHelper.h"
 #include "GL\glew.h"
 #include "../PlayerInfo/PlayerInfo.h"
+#include "../SceneGraph.h"
 
 #include <iostream>
 using namespace std;
@@ -45,6 +46,11 @@ void CGrenade::Update(double dt)
 	{
 		SetStatus(false);
 		SetIsDone(true);	// This method is to inform the EntityManager that it should remove this instance
+		for (int i = 0; i < CSpatialPartition::GetInstance()->GetObjects(position, 0.f).size(); ++i)
+		{
+			CSceneGraph::GetInstance()->DeleteNode(CSpatialPartition::GetInstance()->GetObjects(position, 0.f)[i]);
+			CSpatialPartition::GetInstance()->Remove(CSpatialPartition::GetInstance()->GetObjects(position, 0.f)[i]);
+		}
 		return;
 	}
 
@@ -55,14 +61,11 @@ void CGrenade::Update(double dt)
 	// Update Position
 	m_fElapsedTime += dt;
 	
-	position.Set(position.x + (float)(theDirection.x * dt * m_fSpeed),
-		position.y + (float)(theDirection.y * m_fElapsedTime * m_fSpeed)
-		+ (0.5 * m_fGravity * m_fElapsedTime * m_fElapsedTime),
-		position.z + (float)(theDirection.z * dt * m_fSpeed));
+	position.Set(position.x + (float)(theDirection.x * dt * m_fSpeed), position.y + (float)(theDirection.y * m_fElapsedTime * m_fSpeed) + (0.5 * m_fGravity * m_fElapsedTime * m_fElapsedTime), position.z + (float)(theDirection.z * dt * m_fSpeed));
 
-		if (position.y < m_pTerrain->GetTerrainHeight(position) - 10.0f )
+		if (position.y < m_pTerrain->GetTerrainHeight(position) - 9.2f )
 		{
-			position.y = m_pTerrain->GetTerrainHeight(position) - 10.0f;
+			position.y = m_pTerrain->GetTerrainHeight(position) - 9.2f;
 			m_fSpeed = 0.0f;
 			return;
 		}
@@ -88,7 +91,7 @@ CGrenade *Create::Grenade(const std::string &_meshName,
 		return nullptr;
 
 	CGrenade* result = new CGrenade(modelMesh);
-	result->Set(_position, _direction, m_fLifetime, m_fSpeed);
+	result->Set(_position, _direction * 10.f, m_fLifetime, m_fSpeed);
 	result->SetStatus(true);
 	result->SetCollider(true);
 	result->SetSource(_source);

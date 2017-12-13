@@ -136,8 +136,8 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateRing("ring", Color(1, 0, 1), 36, 1, 0.5f);
 	MeshBuilder::GetInstance()->GenerateSphere("lightball", Color(1, 1, 1), 18, 36, 1.f);
 	MeshBuilder::GetInstance()->GenerateSphere("sphere", Color(1, 0, 0), 18, 36, 1.f);
-	MeshBuilder::GetInstance()->GenerateCone("cone", Color(0.5f, 1, 0.3f), 36, 10.f, 10.f);
 	MeshBuilder::GetInstance()->GenerateCube("cube", Color(1.0f, 1.0f, 0.0f), 1.0f);
+	MeshBuilder::GetInstance()->GenerateCone("cone", Color(0.5f, 1, 0.3f), 36, 10.f, 10.f);
 	MeshBuilder::GetInstance()->GetMesh("cone")->material.kDiffuse.Set(0.99f, 0.99f, 0.99f);
 	MeshBuilder::GetInstance()->GetMesh("cone")->material.kSpecular.Set(0.f, 0.f, 0.f);
 	MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);
@@ -159,23 +159,32 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_BOTTOM")->textureID = LoadTGA("Image//SkyBox//skybox_bottom.tga");
 	MeshBuilder::GetInstance()->GenerateRay("laser", 10.f);
 
-	// Initialise the enemy
-	theEnemy = new CEnemy();
-	theEnemy->Init();
+	MeshBuilder::GetInstance()->GenerateCube("Dummy_head", Color(0, 0, 0), 1.f);
+	MeshBuilder::GetInstance()->GenerateCube("Dummy_body", Color(0, 1, 0), 1.f);
+	MeshBuilder::GetInstance()->GenerateCube("Dummy_arm", Color(0, 0, 1), 1.f);
+
+	// Customise the ground entity
+	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
+	groundEntity->SetPosition(Vector3(0, -10, 0));
+	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
+	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 
 	//Set up the Spatial Partition and pass it to the entityManager to manage
-	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
+	CSpatialPartition::GetInstance()->Init(groundEntity->GetScale().x, groundEntity->GetScale().z, 10, 10, 10);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
 	CSpatialPartition::GetInstance()->SetCamera(&camera);
 	CSpatialPartition::GetInstance()->SetLevelOfDetails(40000.0f,160000.0f);
 	//CSpatialPartition::GetInstance()->SetLevelOfDetails(20.0f, 80.0f);
 	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
+	MeshBuilder::GetInstance()->GenerateCube("cubea", Color(1.0f, 1.0f, 1.0f), 1.0f);
+	CSpatialPartition::GetInstance()->SetMesh("cubea");
 	
 	// Create entities into the scene
 	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.f, 0.64f, 0.f), 1.f);
 
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
+	
 	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 0.0f, -20.0f));
 	aCube->SetCollider(true);
 	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
@@ -191,9 +200,8 @@ void SceneText::Init()
 	CSceneNode* anotherNode = theNode->AddChild(anotherCube);
 	if (anotherNode == NULL)
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-
+	//-----------------------------------------------------------------------------------------------------
 	// Scene Graph topic 2nd week -> for applying transformation
-
 	GenericEntity *baseCube = Create::Asset("cube", Vector3(0.f, 0.f, 0.f));
 	CSceneNode *baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 
@@ -213,8 +221,77 @@ void SceneText::Init()
 	aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.f);
 	aRotateMtx->SetSteps(-120, 60);
 	grandchildNode->SetUpdateTransformation(aRotateMtx);
+	//***********************************************************************************Dummy Entity
 
-	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
+	//GenericEntity *DummyHead = Create::Entity("Dummy_head", Vector3(0.f, 10.f, 0.f));
+	//CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
+	//DummyHNode->ApplyTranslate(0.f, 10.f, 0.f);
+	//DummyHead->SetCollider(true);
+	//DummyHead->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//GenericEntity *DummyBody = Create::Entity("Dummy_body", Vector3(0.f, 5.0f, 0.f));
+	//CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
+	//DummyBNode->ApplyTranslate(0.f, -1.1f, 0.f);
+	//DummyBody->SetCollider(true);
+	//DummyBody->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	////GenericEntity *Dummy_leftarm = Create::Entity("Dummy_arm", Vector3(0.f, 0.f, 0.f));
+	////CSceneNode *DummyLANode = DummyBNode->AddChild(Dummy_leftarm);
+	////DummyLANode->ApplyTranslate(-1.f, 0.f, 0.f);
+	////GenericEntity *Dummy_rightarm = Create::Entity("Dummy_arm", Vector3(0.f, 0.f, 0.f));
+	////CSceneNode *DummyRANode = DummyBNode->AddChild(Dummy_rightarm);
+	////DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
+	//CUpdateTransformation *aanotherRotateMtx = new CUpdateTransformation();
+	//aanotherRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
+	//aanotherRotateMtx->SetSteps(-120, 60);
+	////DummyRANode->SetUpdateTransformation(aRotateMtx);
+	//DummyBNode->SetUpdateTransformation(aanotherRotateMtx);
+
+
+	GenericEntity *HeadDummycube = Create::Entity("cube", Vector3(-10.0f, 1.1f, -20.0f));
+	HeadDummycube->SetCollider(true);
+	HeadDummycube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode *HeadDummyNode = CSceneGraph::GetInstance()->AddNode(HeadDummycube);
+
+	GenericEntity *BodyDummyCube = Create::Entity("cube", Vector3(-10.0f, 0.0f , -20.0f));
+	BodyDummyCube->SetCollider(true);
+	BodyDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode* BodyDummyNode = HeadDummyNode->AddChild(BodyDummyCube);
+	
+	GenericEntity *RightArmDummyCube = Create::Entity("cube", Vector3(-11.1f, 0.0f, -20.0f));
+	RightArmDummyCube->SetCollider(true);
+	RightArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode *RightArmDummyNode = BodyDummyNode->AddChild(RightArmDummyCube);
+
+	GenericEntity *LeftArmDummyCube = Create::Entity("cube", Vector3(-8.9f, 0.0f, -20.0f));
+	LeftArmDummyCube->SetCollider(true);
+	LeftArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	CSceneNode *LeftArmDummyNode = BodyDummyNode->AddChild(LeftArmDummyCube);
+
+	//GenericEntity* DummyB = Create::Entity("cube", Vector3(-20.0f, -1.1f, -20.0f));
+	//DummyB->SetCollider(true);
+	//DummyB->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//CSceneNode *DummyBN = DummyN->AddChild(DummyB);
+	//GenericEntity *DummyL = Create::Entity("Dummy_arm", Vector3(-21.0f, -1.1f, -20.0f));
+	//DummyL->SetCollider(true);
+	//DummyL->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//CSceneNode *DummyLN = DummyBN->AddChild(DummyL);
+	//
+	//GenericEntity *DummyR = Create::Entity("Dummy_arm", Vector3(-19.0f,-1.1f, -20.0f));
+	//DummyR->SetCollider(true);
+	//DummyR->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//CSceneNode *DummyRN = DummyBN->AddChild(DummyR);
+	//DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
+	/*CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
+	aRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
+	aRotateMtx->SetSteps(-120, 60);
+	DummyRANode->SetUpdateTransformation(aRotateMtx);*/
+	//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
+	//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
+
+	//**************************
+	// Initialise the enemy
+	theEnemy = new CEnemy();
+	theEnemy->Init();
+
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
@@ -222,10 +299,6 @@ void SceneText::Init()
 											 "SKYBOX_LEFT", "SKYBOX_RIGHT",
 											 "SKYBOX_TOP", "SKYBOX_BOTTOM");
 
-	// Customise the ground entity
-	groundEntity->SetPosition(Vector3(0, -10, 0));
-	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
-	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
 	theEnemy->SetTerrain(groundEntity);
 	
@@ -245,7 +318,10 @@ void SceneText::Update(double dt)
 {
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
+	/*if (true)
+	{
 
+	}*/
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
 	if(KeyboardController::GetInstance()->IsKeyDown('1'))
 		glEnable(GL_CULL_FACE);
@@ -297,11 +373,11 @@ void SceneText::Update(double dt)
 	}
 	if (MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_XOFFSET) != 0.0)
 	{
-		cout << "Mouse Wheel has offset in X-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_XOFFSET) << endl;
+		//cout << "Mouse Wheel has offset in X-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_XOFFSET) << endl;
 	}
 	if (MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) != 0.0)
 	{
-		cout << "Mouse Wheel has offset in Y-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) << endl;
+		//cout << "Mouse Wheel has offset in Y-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) << endl;
 	}
 	// <THERE>
 	if (KeyboardController::GetInstance()->IsKeyReleased('M'))
@@ -313,6 +389,63 @@ void SceneText::Update(double dt)
 	if (KeyboardController::GetInstance()->IsKeyReleased('N'))
 	{
 		CSpatialPartition::GetInstance()->PrintSelf();
+	}
+	if (KeyboardController::GetInstance()->IsKeyReleased('E'))
+	{
+	//*weaponRNode = DummyRANode->AddChild(weapon);
+		//CSceneGraph ->GetRoot();
+	/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
+		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
+		CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
+
+	}
+	if (KeyboardController::GetInstance()->IsKeyReleased('V'))
+	{
+		//*weaponRNode = DummyRANode->AddChild(weapon);
+		//CSceneGraph ->GetRoot();
+		/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
+		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
+		//CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
+		//CSceneGraph::GetInstance()->GetRoot()->DetachChild(weapon);
+		
+		GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
+		CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
+		//Math::RandFloatMinMax()
+		DummyHNode->ApplyTranslate(0.0f, 10.f, 0.f);
+		GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
+		CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
+		DummyBNode->ApplyTranslate(0.f, -1.f, 0.f);
+		GenericEntity *Dummy_leftarm = Create::Asset("Dummy_arm", Vector3(0.f, 0.f, 0.f));
+		CSceneNode *DummyLANode = DummyBNode->AddChild(Dummy_leftarm);
+		DummyLANode->ApplyTranslate(-1.f, 0.f, 0.f);
+		GenericEntity *Dummy_rightarm = Create::Asset("Dummy_arm", Vector3(0.f, 0.f, 0.f));
+		CSceneNode *DummyRANode = DummyBNode->AddChild(Dummy_rightarm);
+		DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
+		CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
+		aRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
+		aRotateMtx->SetSteps(-120, 60);
+		DummyRANode->SetUpdateTransformation(aRotateMtx);
+	}
+	if (KeyboardController::GetInstance()->IsKeyReleased('X'))
+	{
+		//*weaponRNode = DummyRANode->AddChild(weapon);
+		//CSceneGraph ->GetRoot();
+		/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
+		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
+		//CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
+		//CSceneGraph::GetInstance()->GetRoot()->DetachChild(weapon);
+		
+		//CSceneNode *weaponRNode = CSceneGraph::GetInstance()->AddNode(weapon);
+		//cout << CSceneGraph::GetInstance()<< endl;
+		//CSceneGraph::GetInstance()->GetNode(Dummy_rightarm)->DeleteChild(weapon);
+		//CSceneGraph::GetInstance()->GetNode(weapon)->Destroy();
+		//CSceneGraph::GetInstance()->DeleteNode(*weapon);
+
+		//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
+		//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
+
+
+
 	}
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);

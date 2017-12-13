@@ -23,18 +23,18 @@ CEnemy::~CEnemy()
 void CEnemy::Init(void)
 {
 	// Set the default values
-	defaultPosition.Set(10.f, 0.f, 10.f);
+	defaultPosition.Set(0.f, 0.f, 10.f);
 	defaultTarget.Set(0.f, 0.f, 0.f);
 	defaultTarget.Set(0.f, 1.f, 0.f);
 
 	// Set the current values
-	position.Set(10.f, 0.f, 10.f);
+	position.Set(10.f, 0.f, 0.f);
 	target.Set(10.f, 0.f, 450.f);
 	up.Set(0.f, 1.f, 0.f);
 
 	// Set Boundary
 	maxBoundary.Set(1.f, 1.f, 1.f);
-	minBoundary.Set(1.f, 1.f, 1.f);
+	minBoundary.Set(-1.f, -1.f, -1.f);
 
 	// Set speed
 	m_dSpeed = 1.0;
@@ -47,7 +47,7 @@ void CEnemy::Init(void)
 	this->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -.1f));
 
 	// Add to EntityManager
-	EntityManager::GetInstance()->AddEntity(this, this);
+	EntityManager::GetInstance()->AddEntity(this, true);
 }
 
 // Reset this player instance to defualt

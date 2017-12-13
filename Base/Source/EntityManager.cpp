@@ -396,6 +396,7 @@ bool EntityManager::CheckForCollision(void)
 						{
 							thisEntity->SetIsDone(true);
 							thatEntity->SetIsDone(true);
+							cout << "Collided" << endl;
 						}
 					}
 				}
