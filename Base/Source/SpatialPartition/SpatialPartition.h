@@ -26,6 +26,7 @@ protected:
 	int gridSize;		   // constant value
 	float yOffset;
 	std::string _meshName; // Name of the mesh
+	int x, z;
 
 	// We store the pointer to the Camera so we can get it's position and direction to calculate LOD and visibility
 	FPSCamera *theCamera;

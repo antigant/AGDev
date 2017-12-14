@@ -38,7 +38,8 @@ private:
 
 	GenericEntity* theCube;
 	CEnemy *theEnemy;
-
+	
+	float countDown;
 	static SceneText* sInstance; // The pointer to the object that gets registered
 };
 

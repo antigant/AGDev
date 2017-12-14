@@ -24,6 +24,7 @@
 #include "SceneNode.h"
 #include "SceneGraph.h"
 
+#include "Test Dummy\Dummy.h"
 #include <iostream>
 using namespace std;
 
@@ -298,6 +299,21 @@ void SceneText::Init()
 	LeftArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 	CSceneNode *LeftArmDummyNode = BodyDummyNode->AddChild(LeftArmDummyCube);
 
+
+		
+
+	//GenericEntity *childCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
+	//CSceneNode *childNode = baseNode->AddChild(childCube);
+	//childNode->ApplyTranslate(0.f, 1.f, 0.f);
+
+	//GenericEntity *grandchildCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
+	//CSceneNode *grandchildNode = childNode->AddChild(grandchildCube);
+	//grandchildNode->ApplyTranslate(0.f, 0.f, 1.f);
+	//CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
+	//aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.f);
+	//aRotateMtx->SetSteps(-120, 60);
+	//grandchildNode->SetUpdateTransformation(aRotateMtx);
+
 	//GenericEntity* DummyB = Create::Entity("cube", Vector3(-20.0f, -1.1f, -20.0f));
 	//DummyB->SetCollider(true);
 	//DummyB->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
@@ -344,6 +360,8 @@ void SceneText::Init()
 		textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f,1.0f,0.0f));
 	}
 	textObj[0]->SetText("HELLO WORLD");
+
+	countDown = 5.f;
 }
 
 void SceneText::Update(double dt)
@@ -481,10 +499,28 @@ void SceneText::Update(double dt)
 		//CSceneGraph::GetInstance()->GetNode(weapon)->Destroy();
 		//CSceneGraph::GetInstance()->DeleteNode(*weapon);
 
+		Vector3 dummypos = Vector3(entityposX, 10, entityposZ);
+		//MeshBuilder::GetInstance()->GenerateCube("Dummy_head", Color(0, 0, 0), 1.f);
+		//MeshBuilder::GetInstance()->GenerateCube("Dummy_body", Color(0, 1, 0), 1.f);
+		//MeshBuilder::GetInstance()->GenerateCube("Dummy_arm", Color(0, 0, 1), 1.f);
+
+		//TestDummy *Test = Create::Base("Dummy_head","Dummy_body","Dummy_arm","Dummy_arm", dummypos);
+
+		TestDummy *Test = Create::dummy_part("Dummy_head",dummypos);
+		TestDummy *Test1 = Create::dummy_part("Dummy_body",dummypos +Vector3(0,-1.1f,0));
+		TestDummy *Test2 = Create::dummy_part("Dummy_arm", dummypos + Vector3(-1.1f, -1.1f, 0));
+		TestDummy *Test3 = Create::dummy_part("Dummy_arm", dummypos + Vector3(1.1f, -1.1f, 0));
+
+		
+		CSceneNode *HeadNode = CSceneGraph::GetInstance()->AddNode(Test);
+		CSceneNode *BodyNode = HeadNode->AddChild(Test1);
+		CSceneNode *LANode = BodyNode->AddChild(Test2);
+		CSceneNode *RANode = BodyNode->AddChild(Test3);
+
 		//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
 		//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
 
-		GenericEntity *HeadDummycube = Create::Entity("cube", Vector3(entityposX, 1.1f, entityposZ));
+		/*GenericEntity *HeadDummycube = Create::Entity("cube", Vector3(entityposX, 1.1f, entityposZ));
 		HeadDummycube->SetCollider(true);
 		HeadDummycube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 		CSceneNode *HeadDummyNode = CSceneGraph::GetInstance()->AddNode(HeadDummycube);
@@ -503,8 +539,28 @@ void SceneText::Update(double dt)
 		LeftArmDummyCube->SetCollider(true);
 		LeftArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 		CSceneNode *LeftArmDummyNode = BodyDummyNode->AddChild(LeftArmDummyCube);
+*/
+
+	}
+	countDown -= dt;
+	if (countDown <= 0)
+	{
+		int entityposX = Math::RandIntMinMax(-40, 40);
+		int entityposZ = Math::RandIntMinMax(-40, 40);
+
+		Vector3 dummypos = Vector3(entityposX, 10, entityposZ);
+
+		TestDummy *Test = Create::dummy_part("Dummy_head", dummypos);
+		TestDummy *Test1 = Create::dummy_part("Dummy_body", dummypos + Vector3(0, -1.1f, 0));
+		TestDummy *Test2 = Create::dummy_part("Dummy_arm", dummypos + Vector3(-1.1f, -1.1f, 0));
+		TestDummy *Test3 = Create::dummy_part("Dummy_arm", dummypos + Vector3(1.1f, -1.1f, 0));
 
 
+		CSceneNode *HeadNode = CSceneGraph::GetInstance()->AddNode(Test);
+		CSceneNode *BodyNode = HeadNode->AddChild(Test1);
+		CSceneNode *LANode = BodyNode->AddChild(Test2);
+		CSceneNode *RANode = BodyNode->AddChild(Test3);
+		countDown = 5.f;
 	}
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);
