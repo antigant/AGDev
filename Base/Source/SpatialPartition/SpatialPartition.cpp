@@ -175,53 +175,16 @@ Render the spatial partition
 ********************************************************************************/
 void CSpatialPartition::Render(Vector3* theCameraPosition)
 {
-
 	// Render the Spatial Partitions
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 
-	//int xIndex = (((int)theCamera->GetCameraPos().x - (-xSize >> 1)) / (xSize / xNumOfGrid));
-	//int zIndex = (((int)theCamera->GetCameraPos().z - (-zSize >> 1)) / (zSize / zNumOfGrid));
-	//int gridX = static_cast<int>(theCamera->GetCameraPos().x / xGridSize);
-	//int gridZ = static_cast<int>(theCamera->GetCameraPos().z / zGridSize);
-	//int index = abs(gridZ * m_noGrid + gridX);
-	//cout << "theCamera->GetCameraPos().x = " << theCamera->GetCameraPos().x << endl;
-	//cout << "theCamera->GetCameraPos().z = " << theCamera->GetCameraPos().z << endl;
-	//cout << "xGridSize = " << xGridSize << endl;
-	//cout << "zGridSize = " << zGridSize << endl;
-	//cout << "GridX = " << gridX << endl;
-	//cout << "GridZ = " << gridZ << endl;
-	//modelStack.PushMatrix();
-	//modelStack.Translate(0.f, yOffset, 0.f);
-	//for (int i = 0; i < xNumOfGrid; ++i)
-	//{
-	//	for (int j = 0; j < zNumOfGrid; ++j)
-	//	{
-	//		modelStack.PushMatrix();
-	//		modelStack.Translate(xGridSize * i - (xSize >> 1), 0.f, zGridSize * j - (zSize >> 1));
-	//		modelStack.PushMatrix();
-	//		modelStack.Scale(xGridSize, 1.f, zGridSize);
-	//		modelStack.Rotate(-90.f, 1.f, 0.f, 0.f);
-	//		theGrid[i * zNumOfGrid + j].Render();
-	//		modelStack.PopMatrix();
-	//		modelStack.PopMatrix();
-	//	}
-	//}
-	//modelStack.PopMatrix();
-	//modelStack.PushMatrix();
-	//modelStack.Translate(gridX * xGridSize - (xGridSize >> 1), -5.f, gridZ * zGridSize - (zGridSize >> 1));
-	////modelStack.Translate(xIndex * xGridSize - (xSize >> 1), -5.f, zIndex * zGridSize - (zSize >> 1));
-	//modelStack.Scale(xGridSize, 1.f, zGridSize);
-	////theGrid[xIndex * zNumOfGrid + zIndex].Render();
-	//theGrid[index].Render();
-	//modelStack.PopMatrix();
-
 	modelStack.PushMatrix();
 	modelStack.Translate(0.f, yOffset, 0.f);
-	if (theCamera->GetCameraPos().x < 0)
-		x = xGridSize >> 1;
+	if (theCamera->GetCameraPos().x < 0.f)
+		x = -xGridSize >> 1;
 	else
 		x = xGridSize >> 1;
-	if (theCamera->GetCameraPos().z < 0)
+	if (theCamera->GetCameraPos().z < 0.f)
 		z = -zGridSize >> 1;
 	else
 		z = zGridSize >> 1;
@@ -231,7 +194,6 @@ void CSpatialPartition::Render(Vector3* theCameraPosition)
 	theGrid[1].Render();
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
-	//modelStack.PopMatrix();
 }
 
 /********************************************************************************
