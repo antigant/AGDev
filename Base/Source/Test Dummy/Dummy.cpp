@@ -104,7 +104,7 @@ TestDummy * Create::dummy_part(const std::string & _meshHead, const Vector3 & _p
 	result->SetCollider(true);
 	result->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 
-	EntityManager::GetInstance()->AddEntity(result);
+	EntityManager::GetInstance()->AddEntity(result,true);
 	/*
 	result->Set(_position, _direction, m_fLifetime, m_fSpeed);
 	result->SetStatus(true);
