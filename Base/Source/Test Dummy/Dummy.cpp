@@ -33,6 +33,24 @@ void TestDummy::Init()
 
 void TestDummy::Update(double dt)
 {
+	//int decidesleftright = Math::RandIntMinMax(-1, 1);
+	float move = 0.9f;
+	/*float move;
+	if (decidesleftright = 1)
+	{
+		move = 0.9f;
+	}
+	else if (decidesleftright = -1)
+	{
+		move = -0.9f;
+	}
+	else
+	{
+		move = 0.f;
+	}*/
+
+	position += move * dt;
+
 	if (!isHit)
 		return;
 
