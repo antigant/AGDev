@@ -64,6 +64,8 @@ public:
 	void saveCharValue(const char *dataType, const char value, const bool overWrite = false);
 	// Save Vector3 variable through the Lua Interface Class
 	void saveVector3Value(const char *dataType, const Vector3 value, const bool overWrite = false);
+	// Extract a field from a table
+	float GetField(const char *key);
 
 	// Pointer to the Lua State
 	lua_State *theLuaState;

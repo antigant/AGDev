@@ -24,6 +24,8 @@
 #include "SceneNode.h"
 #include "SceneGraph.h"
 
+#include "Waypoint\WaypointManager.h"
+
 #include "Test Dummy\Dummy.h"
 #include <iostream>
 using namespace std;
@@ -334,6 +336,12 @@ void SceneText::Init()
 	DummyRANode->SetUpdateTransformation(aRotateMtx);*/
 	//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
 	//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
+
+	// Create a Waypoint inside WaypointManager
+	int aWaypoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(10.0f, 0.0, 50.0f));
+	int anotherWaypoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(10.0f, 0.0f, -50.0f));
+	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(-10.0f, 0.0f, 0.0f));
+	CWaypointManager::GetInstance()->PrintSelf();
 
 	//**************************
 	// Initialise the enemy

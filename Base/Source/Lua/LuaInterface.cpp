@@ -106,7 +106,7 @@ int CLuaInterface::getVariableValues(const char *dataType, int &a, int &b, int &
 	lua_pop(theLuaState, 1);
 
 	return true;
-}	
+}
 
 // Get interger variable through the Lua Interface Class
 int CLuaInterface::getIntValue(const char *dataType)
@@ -195,4 +195,15 @@ void CLuaInterface::saveVector3Value(const char *dataType, const Vector3 value, 
 	lua_pushstring(theLuaState, outputString);
 	lua_pushinteger(theLuaState, overWrite);
 	lua_call(theLuaState, 2, 0);
+}
+
+// Extract a field from a table
+float CLuaInterface::GetField(const char * key)
+{
+	int result;
+	lua_pushstring(theLuaState, key);
+	lua_gettable(theLuaState, -2);
+	result = (int)lua_tonumber(theLuaState, -1);
+	lua_pop(theLuaState, 1);
+	return result;
 }

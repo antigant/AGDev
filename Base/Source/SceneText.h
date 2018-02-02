@@ -10,6 +10,7 @@
 #include "MatrixStack.h"
 #include "GenericEntity.h"
 #include "Enemy.h"
+#include "Lua\LuaInterface.h"
 
 class ShaderProgram;
 class SceneManager;

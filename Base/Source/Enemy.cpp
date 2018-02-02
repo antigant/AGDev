@@ -2,6 +2,7 @@
 #include "EntityManager.h"
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
+#include "Waypoint\WaypointManager.h"
 
 CEnemy::CEnemy(void)
 	: GenericEntity(NULL)
@@ -13,7 +14,9 @@ CEnemy::CEnemy(void)
 	, maxBoundary(Vector3(0.f, 0.f, 0.f))
 	, minBoundary(Vector3(0.f, 0.f, 0.f))
 	, m_pTerrain(NULL)
+	, m_iWaypointIndex(-1)
 {
+	listOfWaypoints.clear();
 }
 
 CEnemy::~CEnemy()
@@ -27,9 +30,21 @@ void CEnemy::Init(void)
 	defaultTarget.Set(0.f, 0.f, 0.f);
 	defaultTarget.Set(0.f, 1.f, 0.f);
 
+	// Set up the waypoints
+	listOfWaypoints.push_back(0);
+	listOfWaypoints.push_back(1);
+	listOfWaypoints.push_back(2);
+
+	m_iWaypointIndex = 0;
+
 	// Set the current values
 	position.Set(10.f, 0.f, 0.f);
-	target.Set(10.f, 0.f, 450.f);
+	//target.Set(10.f, 0.f, 450.f);
+	CWaypoint *nextWaypoint = GetNextWaypoint();
+	if (nextWaypoint)
+		target = nextWaypoint->GetPosition();
+	else
+		target.Set(0.0f, 0.0f, 0.0f);
 	up.Set(0.f, 1.f, 0.f);
 
 	// Set Boundary
@@ -118,6 +133,20 @@ GroundEntity *CEnemy::GetTerrain(void)
 	return m_pTerrain;
 }
 
+// Get next Waypoint for this CEnemy
+CWaypoint * CEnemy::GetNextWaypoint(void)
+{
+	if ((int)listOfWaypoints.size() > 0)
+	{
+		++m_iWaypointIndex;
+		if (m_iWaypointIndex >= (int)listOfWaypoints.size())
+			m_iWaypointIndex = 0;
+		return CWaypointManager::GetInstance()->GetWaypoint(listOfWaypoints[m_iWaypointIndex]);
+	}
+	else
+		return NULL;
+}
+
 // Update
 void CEnemy::Update(double dt)
 {
@@ -128,10 +157,20 @@ void CEnemy::Update(double dt)
 	Constrain();
 
 	// Update the target
-	if (position.z > 400.f)
-		target.z = position.z * -1.f;
-	else if (position.z < -400.f)
-		target.z = position.z * -1.f;
+	//if (position.z > 400.f)
+	//	target.z = position.z * -1.f;
+	//else if (position.z < -400.f)
+	//	target.z = position.z * -1.f;
+
+	if ((target - position).LengthSquared() < 25.0f)
+	{
+		CWaypoint *nextWaypoint = GetNextWaypoint();
+		if (nextWaypoint)
+			target = nextWaypoint->GetPosition();
+		else
+			target.Set(0.0f, 0.0f, 0.0f);
+		std::cout << "Next target: " << target << std::endl;
+	}
 }
 
 // Constrain the position within the borders
