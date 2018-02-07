@@ -34,7 +34,7 @@ private:
 	GroundEntity* groundEntity;
 	FPSCamera camera;
 	TextEntity* textObj[3];
-	//Light* lights[2];
+	Light* lights[2];
 
 	GenericEntity* theCube;
 	CEnemy *theEnemy;

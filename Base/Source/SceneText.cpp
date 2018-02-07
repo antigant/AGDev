@@ -88,7 +88,7 @@ void SceneText::Init()
 	// Tell the graphics manager to use the shader we just loaded
 	//GraphicsManager::GetInstance()->SetActiveShader("default");
 
-	/*lights[0] = new Light();
+	lights[0] = new Light();
 	GraphicsManager::GetInstance()->AddLight("lights[0]", lights[0]);
 	lights[0]->type = Light::LIGHT_DIRECTIONAL;
 	lights[0]->position.Set(0, 20, 0);
@@ -110,7 +110,7 @@ void SceneText::Init()
 	lights[1]->color.Set(1, 1, 0.5f);
 	lights[1]->power = 0.4f;
 	lights[1]->name = "lights[1]";
-*/
+
 	//currProg->UpdateInt("numLights", 1);
 	//currProg->UpdateInt("textEnabled", 0);
 	
@@ -394,7 +394,7 @@ void SceneText::Update(double dt)
 	if(KeyboardController::GetInstance()->IsKeyDown('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
-	/*if(KeyboardController::GetInstance()->IsKeyDown('5'))
+	if(KeyboardController::GetInstance()->IsKeyDown('5'))
 	{
 		lights[0]->type = Light::LIGHT_POINT;
 	}
@@ -405,9 +405,9 @@ void SceneText::Update(double dt)
 	else if(KeyboardController::GetInstance()->IsKeyDown('7'))
 	{
 		lights[0]->type = Light::LIGHT_SPOT;
-	}*/
+	}
 
-	/*if(KeyboardController::GetInstance()->IsKeyDown('I'))
+	if(KeyboardController::GetInstance()->IsKeyDown('I'))
 		lights[0]->position.z -= (float)(10.f * dt);
 	if(KeyboardController::GetInstance()->IsKeyDown('K'))
 		lights[0]->position.z += (float)(10.f * dt);
@@ -418,7 +418,7 @@ void SceneText::Update(double dt)
 	if(KeyboardController::GetInstance()->IsKeyDown('O'))
 		lights[0]->position.y -= (float)(10.f * dt);
 	if(KeyboardController::GetInstance()->IsKeyDown('P'))
-		lights[0]->position.y += (float)(10.f * dt);*/
+		lights[0]->position.y += (float)(10.f * dt);
 
 	// if the left mouse button was released
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))
@@ -637,6 +637,6 @@ void SceneText::Exit()
 	}
 
 	// Delete the lights
-//	delete lights[0];
-//	delete lights[1];
+	delete lights[0];
+	delete lights[1];
 }

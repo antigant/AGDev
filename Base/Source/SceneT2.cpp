@@ -88,28 +88,28 @@ void SceneT2::Init()
 	// Tell the graphics manager to use the shader we just loaded
 	//GraphicsManager::GetInstance()->SetActiveShader("default");
 
-	//lights[0] = new Light();
-	//GraphicsManager::GetInstance()->AddLight("lights[0]", lights[0]);
-	//lights[0]->type = Light::LIGHT_DIRECTIONAL;
-	//lights[0]->position.Set(0, 20, 0);
-	//lights[0]->color.Set(1, 1, 1);
-	//lights[0]->power = 1;
-	//lights[0]->kC = 1.f;
-	//lights[0]->kL = 0.01f;
-	//lights[0]->kQ = 0.001f;
-	//lights[0]->cosCutoff = cos(Math::DegreeToRadian(45));
-	//lights[0]->cosInner = cos(Math::DegreeToRadian(30));
-	//lights[0]->exponent = 3.f;
-	//lights[0]->spotDirection.Set(0.f, 1.f, 0.f);
-	//lights[0]->name = "lights[0]";
+	lights[0] = new Light();
+	GraphicsManager::GetInstance()->AddLight("lights[0]", lights[0]);
+	lights[0]->type = Light::LIGHT_DIRECTIONAL;
+	lights[0]->position.Set(0, 20, 0);
+	lights[0]->color.Set(1, 1, 1);
+	lights[0]->power = 1;
+	lights[0]->kC = 1.f;
+	lights[0]->kL = 0.01f;
+	lights[0]->kQ = 0.001f;
+	lights[0]->cosCutoff = cos(Math::DegreeToRadian(45));
+	lights[0]->cosInner = cos(Math::DegreeToRadian(30));
+	lights[0]->exponent = 3.f;
+	lights[0]->spotDirection.Set(0.f, 1.f, 0.f);
+	lights[0]->name = "lights[0]";
 
-	//lights[1] = new Light();
-	//GraphicsManager::GetInstance()->AddLight("lights[1]", lights[1]);
-	//lights[1]->type = Light::LIGHT_DIRECTIONAL;
-	//lights[1]->position.Set(1, 1, 0);
-	//lights[1]->color.Set(1, 1, 0.5f);
-	//lights[1]->power = 0.4f;
-	//lights[1]->name = "lights[1]";
+	lights[1] = new Light();
+	GraphicsManager::GetInstance()->AddLight("lights[1]", lights[1]);
+	lights[1]->type = Light::LIGHT_DIRECTIONAL;
+	lights[1]->position.Set(1, 1, 0);
+	lights[1]->color.Set(1, 1, 0.5f);
+	lights[1]->power = 0.4f;
+	lights[1]->name = "lights[1]";
 
 	//currProg->UpdateInt("numLights", 1);
 	//currProg->UpdateInt("textEnabled", 0);
@@ -396,31 +396,31 @@ void SceneT2::Update(double dt)
 	if (KeyboardController::GetInstance()->IsKeyDown('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	//if (KeyboardController::GetInstance()->IsKeyDown('5'))
-	//{
-	//	lights[0]->type = Light::LIGHT_POINT;
-	//}
-	//else if (KeyboardController::GetInstance()->IsKeyDown('6'))
-	//{
-	//	lights[0]->type = Light::LIGHT_DIRECTIONAL;
-	//}
-	//else if (KeyboardController::GetInstance()->IsKeyDown('7'))
-	//{
-	//	lights[0]->type = Light::LIGHT_SPOT;
-	//}
+	if (KeyboardController::GetInstance()->IsKeyDown('5'))
+	{
+		lights[0]->type = Light::LIGHT_POINT;
+	}
+	else if (KeyboardController::GetInstance()->IsKeyDown('6'))
+	{
+		lights[0]->type = Light::LIGHT_DIRECTIONAL;
+	}
+	else if (KeyboardController::GetInstance()->IsKeyDown('7'))
+	{
+		lights[0]->type = Light::LIGHT_SPOT;
+	}
 
-	//if (KeyboardController::GetInstance()->IsKeyDown('I'))
-	//	lights[0]->position.z -= (float)(10.f * dt);
-	//if (KeyboardController::GetInstance()->IsKeyDown('K'))
-	//	lights[0]->position.z += (float)(10.f * dt);
-	//if (KeyboardController::GetInstance()->IsKeyDown('J'))
-	//	lights[0]->position.x -= (float)(10.f * dt);
-	//if (KeyboardController::GetInstance()->IsKeyDown('L'))
-	//	lights[0]->position.x += (float)(10.f * dt);
-	//if (KeyboardController::GetInstance()->IsKeyDown('O'))
-	//	lights[0]->position.y -= (float)(10.f * dt);
-	//if (KeyboardController::GetInstance()->IsKeyDown('P'))
-	//	lights[0]->position.y += (float)(10.f * dt);
+	if (KeyboardController::GetInstance()->IsKeyDown('I'))
+		lights[0]->position.z -= (float)(10.f * dt);
+	if (KeyboardController::GetInstance()->IsKeyDown('K'))
+		lights[0]->position.z += (float)(10.f * dt);
+	if (KeyboardController::GetInstance()->IsKeyDown('J'))
+		lights[0]->position.x -= (float)(10.f * dt);
+	if (KeyboardController::GetInstance()->IsKeyDown('L'))
+		lights[0]->position.x += (float)(10.f * dt);
+	if (KeyboardController::GetInstance()->IsKeyDown('O'))
+		lights[0]->position.y -= (float)(10.f * dt);
+	if (KeyboardController::GetInstance()->IsKeyDown('P'))
+		lights[0]->position.y += (float)(10.f * dt);
 
 	// if the left mouse button was released
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))
@@ -630,6 +630,6 @@ void SceneT2::Exit()
 	}
 
 	// Delete the lights
-	//delete lights[0];
-	//delete lights[1];
+	delete lights[0];
+	delete lights[1];
 }

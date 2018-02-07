@@ -42,3 +42,8 @@ function GetMinMax(...)
 	print(minValue, maxValue, avgValue, numValues)
 	return minValue, maxValue, avgValue, numValues
 end
+
+-- Waypoints
+Waypoints_A_1 = {x=10.0, y=0.0, z=50.0}
+Waypoints_A_2 = {x=10.0, y=0.0, z=-50.0}
+Waypoints_A_3 = {x=-10.0, y=0.0, z=0.0}
