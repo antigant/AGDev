@@ -1,5 +1,5 @@
-#ifndef SCENE_TEXT_H
-#define SCENE_TEXT_H
+#ifndef SCENE_T2_H
+#define SCENE_T2_H
 
 #include "Scene.h"
 #include "Mtx44.h"
@@ -15,11 +15,11 @@ class ShaderProgram;
 class SceneManager;
 class TextEntity;
 class Light;
-class SceneText : public Scene
-{	
+class SceneT2 : public Scene
+{
 public:
-	SceneText();
-	~SceneText();
+	SceneT2();
+	~SceneT2();
 
 	virtual void Init();
 	virtual void Update(double dt);
@@ -38,7 +38,7 @@ private:
 
 	GenericEntity* theCube;
 	CEnemy *theEnemy;
-	
+
 	float countDown;
 	//static SceneText* sInstance; // The pointer to the object that gets registered
 };

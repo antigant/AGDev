@@ -5,6 +5,8 @@
 #include "SceneText.h"
 #include "IntroState.h"
 #include "MenuState.h"
+#include "SceneT2.h"
+
 struct GLFWwindow;
 
 class Application
