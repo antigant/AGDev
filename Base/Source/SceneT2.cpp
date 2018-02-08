@@ -357,7 +357,7 @@ void SceneT2::Init()
 	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
-	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
+	SkyBoxEntity*theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 		"SKYBOX_LEFT", "SKYBOX_RIGHT",
 		"SKYBOX_TOP", "SKYBOX_BOTTOM");
 
@@ -444,6 +444,13 @@ void SceneT2::Update(double dt)
 		//cout << "Mouse Wheel has offset in Y-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) << endl;
 	}
 	// <THERE>
+	if (KeyboardController::GetInstance()->IsKeyDown('P'))
+	{
+		cout << "Loading EndScene" << endl;
+		//SceneManager::GetInstance()->SetActiveScene("GameState2");
+		//SceneManager::GetInstance()->Exit();
+		SceneManager::GetInstance()->SetActiveScene("EndSceneState");
+	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('M'))
 	{
 		CSceneNode *theNode = CSceneGraph::GetInstance()->GetNode(1);
@@ -630,6 +637,7 @@ void SceneT2::Exit()
 	}
 
 	// Delete the lights
-	delete lights[0];
-	delete lights[1];
+	GraphicsManager::GetInstance()->RemoveLight("lights[0]");
+	GraphicsManager::GetInstance()->RemoveLight("lights[1]");
+	groundEntity->SetIsDone(true);
 }

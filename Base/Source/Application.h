@@ -6,6 +6,7 @@
 #include "IntroState.h"
 #include "MenuState.h"
 #include "SceneT2.h"
+#include "EndSceneState.h"
 
 struct GLFWwindow;
 

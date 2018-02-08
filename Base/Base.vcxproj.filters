@@ -38,8 +38,16 @@
     <ClCompile Include="Source\WeaponInfo\LaserBlaster.cpp" />
     <ClCompile Include="Source\WeaponInfo\Pistol.cpp" />
     <ClCompile Include="Source\WeaponInfo\WeaponInfo.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Source\State\State.cpp">
       <Filter>State</Filter>
+=======
+<<<<<<< HEAD
+    <ClCompile Include="Source\EndSceneState.cpp" />
+=======
+    <ClCompile Include="Source\IntroState.cpp">
+      <Filter>GameStateManagement</Filter>
+>>>>>>> fa44a1f5184308471e44e1d0728d82fc7d529e08
     </ClCompile>
     <ClCompile Include="Source\State\StateMachineManager.cpp">
       <Filter>State</Filter>
@@ -47,6 +55,7 @@
     <ClCompile Include="Source\State\EnemyPatrol.cpp">
       <Filter>State</Filter>
     </ClCompile>
+>>>>>>> b21a53a80f86519df5499f9047dfa4ae0b3a35c6
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -90,8 +99,27 @@
     <ClInclude Include="Source\WeaponInfo\LaserBlaster.h" />
     <ClInclude Include="Source\WeaponInfo\Pistol.h" />
     <ClInclude Include="Source\WeaponInfo\WeaponInfo.h" />
+<<<<<<< HEAD
     <ClInclude Include="Source\State\State.h">
       <Filter>State</Filter>
+=======
+<<<<<<< HEAD
+    <ClInclude Include="Source\EndSceneState.h" />
+=======
+    <ClInclude Include="Source\Lua\lauxlib.h" />
+    <ClInclude Include="Source\IntroState.h">
+      <Filter>GameStateManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MenuState.h">
+      <Filter>GameStateManagement</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Source\SceneT2.h">
+      <Filter>GameStateManagement</Filter>
+=======
+    <ClInclude Include="Source\Waypoint\Waypoint.h">
+      <Filter>Waypoint</Filter>
+>>>>>>> fa44a1f5184308471e44e1d0728d82fc7d529e08
     </ClInclude>
     <ClInclude Include="Source\State\StateMachineManager.h">
       <Filter>State</Filter>
@@ -104,5 +132,6 @@
     <Filter Include="State">
       <UniqueIdentifier>{5da7ab4c-fb78-4129-b86f-08d06a2c17dc}</UniqueIdentifier>
     </Filter>
+>>>>>>> b21a53a80f86519df5499f9047dfa4ae0b3a35c6
   </ItemGroup>
 </Project>
