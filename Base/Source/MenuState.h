@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "Scene.h"
 #include "Mtx44.h"
 #include "Mesh.h"
