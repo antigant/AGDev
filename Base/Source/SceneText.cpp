@@ -26,7 +26,7 @@
 
 #include "Test Dummy\Dummy.h"
 #include <iostream>
-using namespace std;
+#include "Waypoint\WaypointManager.h"
 
 //SceneText* SceneText::sInstance = new SceneText(SceneManager::GetInstance());
 
@@ -41,6 +41,8 @@ SceneText::SceneText()
 
 SceneText::~SceneText()
 {
+	CWaypointManager::GetInstance()->DropInstance();
+	CSpatialPartition::GetInstance()->RemoveCamera();
 	CSceneGraph::GetInstance()->Destroy();
 }
 
@@ -355,10 +357,18 @@ void SceneText::Init()
 	//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
 	//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
 
+	// Create a Waypoint inside WaypointManager
+	int aWaypoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(10.0f, 0.0, 50.0f));
+	int anotherWaypoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(10.0f, 0.0f, -50.0f));
+	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(-10.0f, 0.0f, 0.0f));
+	CWaypointManager::GetInstance()->PrintSelf();
+
+
 	//**************************
 	// Initialise the enemy
 	theEnemy = new CEnemy();
 	theEnemy->Init();
+	//theEnemy->
 
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
@@ -382,6 +392,8 @@ void SceneText::Init()
 	textObj[0]->SetText("HELLO WORLD");
 
 	countDown = 5.f;
+
+	std::cout << "End of SceneText Init()" << std::endl;
 }
 
 void SceneText::Update(double dt)

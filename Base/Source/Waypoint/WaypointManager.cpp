@@ -2,7 +2,7 @@
 #include <iostream>
 
 CWaypointManager *CWaypointManager::s_instance = 0;
- 
+
 CWaypointManager::CWaypointManager(void)
 	: m_iID(-1)
 {
@@ -103,8 +103,8 @@ CWaypoint * CWaypointManager::GetWaypoint(const int m_iID)
 		{
 			if ((*it)->GetID() == m_iID)
 				return (CWaypoint*)*it;
+			it++;
 		}
-		it++;
 	}
 	return NULL;
 }

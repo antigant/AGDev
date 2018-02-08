@@ -38,7 +38,30 @@
     <ClCompile Include="Source\WeaponInfo\LaserBlaster.cpp" />
     <ClCompile Include="Source\WeaponInfo\Pistol.cpp" />
     <ClCompile Include="Source\WeaponInfo\WeaponInfo.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Source\EndSceneState.cpp" />
+=======
+    <ClCompile Include="Source\IntroState.cpp">
+      <Filter>GameStateManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MenuState.cpp">
+      <Filter>GameStateManagement</Filter>
+    </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="Source\SceneT2.cpp">
+      <Filter>GameStateManagement</Filter>
+=======
+    <ClCompile Include="Source\Waypoint\Waypoint.cpp">
+      <Filter>Waypoint</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Waypoint\WaypointManager.cpp">
+      <Filter>Waypoint</Filter>
+>>>>>>> 2ff78913b19693e1a1b7e98ff0b89b8011f21414
+    </ClCompile>
+    <ClCompile Include="Source\Lua\LuaInterface.cpp">
+      <Filter>Lua</Filter>
+    </ClCompile>
+>>>>>>> b21a53a80f86519df5499f9047dfa4ae0b3a35c6
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -82,6 +105,53 @@
     <ClInclude Include="Source\WeaponInfo\LaserBlaster.h" />
     <ClInclude Include="Source\WeaponInfo\Pistol.h" />
     <ClInclude Include="Source\WeaponInfo\WeaponInfo.h" />
+<<<<<<< HEAD
     <ClInclude Include="Source\EndSceneState.h" />
+=======
+    <ClInclude Include="Source\Lua\lauxlib.h" />
+    <ClInclude Include="Source\IntroState.h">
+      <Filter>GameStateManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MenuState.h">
+      <Filter>GameStateManagement</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Source\SceneT2.h">
+      <Filter>GameStateManagement</Filter>
+=======
+    <ClInclude Include="Source\Waypoint\Waypoint.h">
+      <Filter>Waypoint</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Waypoint\WaypointManager.h">
+      <Filter>Waypoint</Filter>
+>>>>>>> 2ff78913b19693e1a1b7e98ff0b89b8011f21414
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lua.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lua.hpp">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\luaconf.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\LuaInterface.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lua\lualib.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GameStateManagement">
+      <UniqueIdentifier>{01c83d98-3263-4a6a-9342-fd24b890c040}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Waypoint">
+      <UniqueIdentifier>{b2604e75-fa00-4d02-8960-0f6a5ad6550f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{66b540ac-f396-4cdd-95df-843d65d6ab51}</UniqueIdentifier>
+    </Filter>
+>>>>>>> b21a53a80f86519df5499f9047dfa4ae0b3a35c6
   </ItemGroup>
 </Project>

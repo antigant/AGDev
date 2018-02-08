@@ -45,6 +45,7 @@ void CEnemy::Init(void)
 		target = nextWaypoint->GetPosition();
 	else
 		target.Set(0.0f, 0.0f, 0.0f);
+	std::cout << "Next target: " << target << std::endl;
 	up.Set(0.f, 1.f, 0.f);
 
 	// Set Boundary
@@ -134,11 +135,11 @@ GroundEntity *CEnemy::GetTerrain(void)
 }
 
 // Get next Waypoint for this CEnemy
-CWaypoint * CEnemy::GetNextWaypoint(void)
+CWaypoint *CEnemy::GetNextWaypoint(void)
 {
 	if ((int)listOfWaypoints.size() > 0)
 	{
-		++m_iWaypointIndex;
+		m_iWaypointIndex++;
 		if (m_iWaypointIndex >= (int)listOfWaypoints.size())
 			m_iWaypointIndex = 0;
 		return CWaypointManager::GetInstance()->GetWaypoint(listOfWaypoints[m_iWaypointIndex]);
@@ -168,7 +169,7 @@ void CEnemy::Update(double dt)
 		if (nextWaypoint)
 			target = nextWaypoint->GetPosition();
 		else
-			target.Set(0.0f, 0.0f, 0.0f);
+			target.SetZero();
 		std::cout << "Next target: " << target << std::endl;
 	}
 }
