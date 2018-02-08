@@ -38,11 +38,16 @@
     <ClCompile Include="Source\MenuState.cpp">
       <Filter>GameStateManagement</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="Source\SceneT2.cpp">
+      <Filter>GameStateManagement</Filter>
+=======
     <ClCompile Include="Source\Waypoint\Waypoint.cpp">
       <Filter>Waypoint</Filter>
     </ClCompile>
     <ClCompile Include="Source\Waypoint\WaypointManager.cpp">
       <Filter>Waypoint</Filter>
+>>>>>>> 2ff78913b19693e1a1b7e98ff0b89b8011f21414
     </ClCompile>
     <ClCompile Include="Source\Lua\LuaInterface.cpp">
       <Filter>Lua</Filter>
@@ -86,11 +91,16 @@
     <ClInclude Include="Source\MenuState.h">
       <Filter>GameStateManagement</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Source\SceneT2.h">
+      <Filter>GameStateManagement</Filter>
+=======
     <ClInclude Include="Source\Waypoint\Waypoint.h">
       <Filter>Waypoint</Filter>
     </ClInclude>
     <ClInclude Include="Source\Waypoint\WaypointManager.h">
       <Filter>Waypoint</Filter>
+>>>>>>> 2ff78913b19693e1a1b7e98ff0b89b8011f21414
     </ClInclude>
     <ClInclude Include="Source\Lua\lua.h">
       <Filter>Lua</Filter>
