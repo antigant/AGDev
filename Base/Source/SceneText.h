@@ -28,7 +28,7 @@ public:
 
 private:
 	//SceneText(SceneManager* _sceneMgr); // This is used to register to SceneManager
-
+	//SkyBoxEntity* theSkyBox;
 	ShaderProgram* currProg;
 	CPlayerInfo* playerInfo;
 	GroundEntity* groundEntity;
@@ -36,6 +36,7 @@ private:
 	TextEntity* textObj[3];
 	Light* lights[2];
 
+	GenericEntity* Portal;
 	GenericEntity* theCube;
 	CEnemy *theEnemy;
 	

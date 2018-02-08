@@ -1,6 +1,8 @@
 #include "WaypointManager.h"
 #include <iostream>
 
+CWaypointManager *CWaypointManager::s_instance = 0;
+ 
 CWaypointManager::CWaypointManager(void)
 	: m_iID(-1)
 {

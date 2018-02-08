@@ -181,6 +181,9 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateOBJ("elephant3", "OBJ//elephant3.obj");
 	MeshBuilder::GetInstance()->GetMesh("elephant3")->textureID = LoadTGA("Image//elephant.tga");
 
+	MeshBuilder::GetInstance()->GenerateQuad("PORTAL", Color(1, 1, 1), 1.f);
+	MeshBuilder::GetInstance()->GetMesh("PORTAL")->textureID = LoadTGA("Image//portal.tga");
+
 	// Customise the ground entity
 	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 	groundEntity->SetPosition(Vector3(0, -10, 0));
@@ -196,7 +199,12 @@ void SceneText::Init()
 	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
 	MeshBuilder::GetInstance()->GenerateCube("cubea", Color(1.0f, 1.0f, 1.0f), 1.0f);
 	CSpatialPartition::GetInstance()->SetMesh("cubea");
-	
+	//Portal = new GenericEntity();
+	Portal = Create::Entity("PORTAL", Vector3(0.f, 10.f, -50.f), Vector3(24.f, 24.f, 24.f));
+	Portal->SetCollider(true);
+	Portal->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
+	//Portal->InitLOD("rock1", "rock2", "rock3");
+
 	/*GenericEntity *rock = Create::Entity("rock1", Vector3(-20.f, -10.f, 50.f), Vector3(4.f, 4.f, 4.f));
 	rock->SetCollider(true);
 	rock->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
@@ -446,10 +454,17 @@ void SceneText::Update(double dt)
 	// <THERE>
 	if (KeyboardController::GetInstance()->IsKeyDown('P'))
 	{
-		cout << "Loading State2" << endl;
+		cout << "Loading EndScene" << endl;
 		//SceneManager::GetInstance()->SetActiveScene("GameState2");
 		//SceneManager::GetInstance()->Exit();
+		SceneManager::GetInstance()->SetActiveScene("EndSceneState");
+	}
+	if (KeyboardController::GetInstance()->IsKeyDown('O'))
+	{
+		cout << "Loading Game2" << endl;
 		SceneManager::GetInstance()->SetActiveScene("GameState2");
+		//SceneManager::GetInstance()->Exit();
+		//SceneManager::GetInstance()->SetActiveScene("EndSceneState");
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('M'))
 	{
@@ -583,6 +598,13 @@ void SceneText::Update(double dt)
 		CSceneNode *RANode = BodyNode->AddChild(Test3);
 		countDown = 5.f;
 	}
+
+	if ((playerInfo->GetPos() - Portal->GetPosition()).LengthSquared() < 50.0f)
+	{
+		cout << "Loading Game2" << endl;
+		SceneManager::GetInstance()->SetActiveScene("GameState2");
+	}
+	
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);
 
@@ -637,6 +659,10 @@ void SceneText::Exit()
 	}
 
 	// Delete the lights
-	delete lights[0];
-	delete lights[1];
+	//delete lights[0];
+	//delete lights[1];
+	GraphicsManager::GetInstance()->RemoveLight("lights[0]");
+	GraphicsManager::GetInstance()->RemoveLight("lights[1]");
+	groundEntity->SetIsDone(true);
+	//theSkyBox
 }

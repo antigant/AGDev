@@ -7,9 +7,12 @@
     <ClCompile Include="Source\FPSCamera.cpp" />
     <ClCompile Include="Source\GenericEntity.cpp" />
     <ClCompile Include="Source\GroundEntity.cpp" />
+    <ClCompile Include="Source\IntroState.cpp" />
     <ClCompile Include="Source\LevelOfDetails.cpp" />
     <ClCompile Include="Source\Light.cpp" />
+    <ClCompile Include="Source\Lua\LuaInterface.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\OBJMesh.cpp" />
     <ClCompile Include="Source\Particles.cpp" />
     <ClCompile Include="Source\ParticlesGenerator.cpp" />
@@ -19,6 +22,7 @@
     <ClCompile Include="Source\Projectile\Projectile.cpp" />
     <ClCompile Include="Source\SceneGraph.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
+    <ClCompile Include="Source\SceneT2.cpp" />
     <ClCompile Include="Source\SceneText.cpp" />
     <ClCompile Include="Source\SkyBox\SkyBoxEntity.cpp" />
     <ClCompile Include="Source\SpatialPartition\Grid.cpp" />
@@ -28,28 +32,13 @@
     <ClCompile Include="Source\TextEntity.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\UpdateTransformation.cpp" />
+    <ClCompile Include="Source\Waypoint\Waypoint.cpp" />
+    <ClCompile Include="Source\Waypoint\WaypointManager.cpp" />
     <ClCompile Include="Source\WeaponInfo\GrenadeThrow.cpp" />
     <ClCompile Include="Source\WeaponInfo\LaserBlaster.cpp" />
     <ClCompile Include="Source\WeaponInfo\Pistol.cpp" />
     <ClCompile Include="Source\WeaponInfo\WeaponInfo.cpp" />
-    <ClCompile Include="Source\Lua\LuaInterface.cpp" />
-    <ClCompile Include="Source\IntroState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MenuState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Source\SceneT2.cpp">
-      <Filter>GameStateManagement</Filter>
-=======
-    <ClCompile Include="Source\Waypoint\Waypoint.cpp">
-      <Filter>Waypoint</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Waypoint\WaypointManager.cpp">
-      <Filter>Waypoint</Filter>
->>>>>>> 2ff78913b19693e1a1b7e98ff0b89b8011f21414
-    </ClCompile>
+    <ClCompile Include="Source\EndSceneState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -58,8 +47,16 @@
     <ClInclude Include="Source\FPSCamera.h" />
     <ClInclude Include="Source\GenericEntity.h" />
     <ClInclude Include="Source\GroundEntity.h" />
+    <ClInclude Include="Source\IntroState.h" />
     <ClInclude Include="Source\LevelOfDetails.h" />
     <ClInclude Include="Source\Light.h" />
+    <ClInclude Include="Source\Lua\lauxlib.h" />
+    <ClInclude Include="Source\Lua\lua.h" />
+    <ClInclude Include="Source\Lua\lua.hpp" />
+    <ClInclude Include="Source\Lua\luaconf.h" />
+    <ClInclude Include="Source\Lua\LuaInterface.h" />
+    <ClInclude Include="Source\Lua\lualib.h" />
+    <ClInclude Include="Source\MenuState.h" />
     <ClInclude Include="Source\OBJMesh.h" />
     <ClInclude Include="Source\Particles.h" />
     <ClInclude Include="Source\ParticlesGenerator.h" />
@@ -69,6 +66,7 @@
     <ClInclude Include="Source\Projectile\Projectile.h" />
     <ClInclude Include="Source\SceneGraph.h" />
     <ClInclude Include="Source\SceneNode.h" />
+    <ClInclude Include="Source\SceneT2.h" />
     <ClInclude Include="Source\SceneText.h" />
     <ClInclude Include="Source\SkyBox\SkyBoxEntity.h" />
     <ClInclude Include="Source\SpatialPartition\Grid.h" />
@@ -78,40 +76,12 @@
     <ClInclude Include="Source\TextEntity.h" />
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\UpdateTransformation.h" />
+    <ClInclude Include="Source\Waypoint\Waypoint.h" />
+    <ClInclude Include="Source\Waypoint\WaypointManager.h" />
     <ClInclude Include="Source\WeaponInfo\GrenadeThrow.h" />
     <ClInclude Include="Source\WeaponInfo\LaserBlaster.h" />
     <ClInclude Include="Source\WeaponInfo\Pistol.h" />
     <ClInclude Include="Source\WeaponInfo\WeaponInfo.h" />
-    <ClInclude Include="Source\Lua\LuaInterface.h" />
-    <ClInclude Include="Source\Lua\lauxlib.h" />
-    <ClInclude Include="Source\Lua\lua.h" />
-    <ClInclude Include="Source\Lua\lua.hpp" />
-    <ClInclude Include="Source\Lua\luaconf.h" />
-    <ClInclude Include="Source\Lua\lualib.h" />
-    <ClInclude Include="Source\IntroState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MenuState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Source\SceneT2.h">
-      <Filter>GameStateManagement</Filter>
-=======
-    <ClInclude Include="Source\Waypoint\Waypoint.h">
-      <Filter>Waypoint</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Waypoint\WaypointManager.h">
-      <Filter>Waypoint</Filter>
->>>>>>> 2ff78913b19693e1a1b7e98ff0b89b8011f21414
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="GameStateManagement">
-      <UniqueIdentifier>{01c83d98-3263-4a6a-9342-fd24b890c040}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Waypoint">
-      <UniqueIdentifier>{b2604e75-fa00-4d02-8960-0f6a5ad6550f}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Source\EndSceneState.h" />
   </ItemGroup>
 </Project>
