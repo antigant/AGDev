@@ -26,7 +26,10 @@
 
 #include "Test Dummy\Dummy.h"
 #include <iostream>
-using namespace std;
+
+#include "Waypoint\WaypointManager.h"
+#include "State\StateMachineManager.h"
+#include "State\EnemyPatrol.h"
 
 //SceneText* SceneText::sInstance = new SceneText(SceneManager::GetInstance());
 
@@ -209,24 +212,24 @@ void SceneText::Init()
 	elephant->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
 	elephant->InitLOD("elephant1", "elephant2", "elephant3");
 */
-	for (size_t i = 0; i < 60; i++)
-	{
-	int entityposX = Math::RandIntMinMax(-400, 400);
-	int entityposZ = Math::RandIntMinMax(-400, 400);
+	//for (size_t i = 0; i < 60; i++)
+	//{
+	//int entityposX = Math::RandIntMinMax(-400, 400);
+	//int entityposZ = Math::RandIntMinMax(-400, 400);
 
-	GenericEntity *tree = Create::Entity("tree1", Vector3(entityposX, -10.f, entityposZ), Vector3(4.f, 4.f, 4.f));
-	tree->SetCollider(true);
-	tree->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	tree->InitLOD("tree1", "tree2", "tree3");
+	//GenericEntity *tree = Create::Entity("tree1", Vector3(entityposX, -10.f, entityposZ), Vector3(4.f, 4.f, 4.f));
+	//tree->SetCollider(true);
+	//tree->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
+	//tree->InitLOD("tree1", "tree2", "tree3");
 
-	/*GenericEntity *elephant = Create::Entity("elephant1", Vector3(entityposX, -10.f, entityposZ), Vector3(5.f, 5.f, 5.f));
-	elephant->SetCollider(true);
-	elephant->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	elephant->InitLOD("elephant1", "elephant2", "elephant3");*/
-	}
+	///*GenericEntity *elephant = Create::Entity("elephant1", Vector3(entityposX, -10.f, entityposZ), Vector3(5.f, 5.f, 5.f));
+	//elephant->SetCollider(true);
+	//elephant->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
+	//elephant->InitLOD("elephant1", "elephant2", "elephant3");*/
+	//}
 
 	// Create entities into the scene
-	//MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.f, 0.64f, 0.f), 1.f);
+	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.f, 0.64f, 0.f), 1.f);
 
 	//Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	//Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
@@ -250,7 +253,8 @@ void SceneText::Init()
 	//-----------------------------------------------------------------------------------------------------
 	// Scene Graph topic 2nd week -> for applying transformation
 	/*GenericEntity *baseCube = Create::Asset("cube", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
+	CSceneNode *baseNode = CSceneGraph::GetInstance()->AddNode(base
+);
 
 	CUpdateTransformation *baseMtx = new CUpdateTransformation();
 	baseMtx->ApplyUpdate(0.01f, 0.0f, 0.0f);
@@ -349,21 +353,23 @@ void SceneText::Init()
 	//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
 	//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
 
-<<<<<<< HEAD
-
 	// Create a Waypoint inside WaypointManager
 	int aWaypoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(10.0f, 0.0, 50.0f));
 	int anotherWaypoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(10.0f, 0.0f, -50.0f));
-	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(-10.0f, 0.0f, 0.0f));
+	CWaypointManager::GetInstance()->AddWaypoint(anotherWaypoint, Vector3(-50.0f, 0.0f, 0.0f));
 	CWaypointManager::GetInstance()->PrintSelf();
-
-=======
->>>>>>> 236069fb8f5bd309e505497f158603c82e584d7c
 	//**************************
 	// Initialise the enemy
 	theEnemy = new CEnemy();
 	theEnemy->Init();
-	//theEnemy->
+	theEnemy->SetActive(true);
+	theEnemy->SetType("Enemy");
+	theEnemy->SetMesh(MeshBuilder::GetInstance()->GetMesh("cube"));
+
+	// FSM
+	StateMachineManager::GetInstance()->AddState("Enemy", new EnemyPatrol("enemy_patrol"));
+	StateMachineManager::GetInstance()->AddGameObject(theEnemy);
+	StateMachineManager::GetInstance()->DefaultState(theEnemy);
 
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
@@ -387,14 +393,13 @@ void SceneText::Init()
 	textObj[0]->SetText("HELLO WORLD");
 
 	countDown = 5.f;
-
-	std::cout << "End of SceneText Init()" << std::endl;
 }
 
 void SceneText::Update(double dt)
 {
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
+	StateMachineManager::GetInstance()->Update(dt);
 	/*if (true)
 	{
 
@@ -578,26 +583,26 @@ void SceneText::Update(double dt)
 */
 
 	}
-	countDown -= dt;
-	if (countDown <= 0)
-	{
-		int entityposX = Math::RandIntMinMax(-400, 400);
-		int entityposZ = Math::RandIntMinMax(-400, 400);
+	//countDown -= dt;
+	//if (countDown <= 0)
+	//{
+	//	int entityposX = Math::RandIntMinMax(-400, 400);
+	//	int entityposZ = Math::RandIntMinMax(-400, 400);
 
-		Vector3 dummypos = Vector3(entityposX, 10, entityposZ);
+	//	Vector3 dummypos = Vector3(entityposX, 10, entityposZ);
 
-		TestDummy *Test = Create::dummy_part("Dummy_head", dummypos);
-		TestDummy *Test1 = Create::dummy_part("Dummy_body", dummypos + Vector3(0, -1.1f, 0));
-		TestDummy *Test2 = Create::dummy_part("Dummy_arm", dummypos + Vector3(-1.1f, -1.1f, 0));
-		TestDummy *Test3 = Create::dummy_part("Dummy_arm", dummypos + Vector3(1.1f, -1.1f, 0));
+	//	TestDummy *Test = Create::dummy_part("Dummy_head", dummypos);
+	//	TestDummy *Test1 = Create::dummy_part("Dummy_body", dummypos + Vector3(0, -1.1f, 0));
+	//	TestDummy *Test2 = Create::dummy_part("Dummy_arm", dummypos + Vector3(-1.1f, -1.1f, 0));
+	//	TestDummy *Test3 = Create::dummy_part("Dummy_arm", dummypos + Vector3(1.1f, -1.1f, 0));
 
 
-		CSceneNode *HeadNode = CSceneGraph::GetInstance()->AddNode(Test);
-		CSceneNode *BodyNode = HeadNode->AddChild(Test1);
-		CSceneNode *LANode = BodyNode->AddChild(Test2);
-		CSceneNode *RANode = BodyNode->AddChild(Test3);
-		countDown = 5.f;
-	}
+	//	CSceneNode *HeadNode = CSceneGraph::GetInstance()->AddNode(Test);
+	//	CSceneNode *BodyNode = HeadNode->AddChild(Test1);
+	//	CSceneNode *LANode = BodyNode->AddChild(Test2);
+	//	CSceneNode *RANode = BodyNode->AddChild(Test3);
+	//	countDown = 5.f;
+	//}
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);
 
@@ -650,6 +655,9 @@ void SceneText::Exit()
 		cout << "Unable to drop PlayerInfo class" << endl;
 #endif
 	}
+
+	// Clean the state machine manager
+	StateMachineManager::GetInstance()->CleanManager();
 
 	// Delete the lights
 	delete lights[0];

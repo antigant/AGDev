@@ -15,6 +15,10 @@ CEnemy::CEnemy(void)
 	, minBoundary(Vector3(0.f, 0.f, 0.f))
 	, m_pTerrain(NULL)
 	, m_iWaypointIndex(-1)
+	, m_currState(NULL)
+	, m_nextState(NULL)
+	, active(false)
+	, type("No Type")
 {
 	listOfWaypoints.clear();
 }
@@ -44,7 +48,7 @@ void CEnemy::Init(void)
 	if (nextWaypoint)
 		target = nextWaypoint->GetPosition();
 	else
-		target.Set(0.0f, 0.0f, 0.0f);
+		target.SetZero();
 	std::cout << "Next target: " << target << std::endl;
 	up.Set(0.f, 1.f, 0.f);
 
@@ -53,7 +57,7 @@ void CEnemy::Init(void)
 	minBoundary.Set(-1.f, -1.f, -1.f);
 
 	// Set speed
-	m_dSpeed = 1.0;
+	m_dSpeed = 10.0;
 
 	// Initialised the LOD meshes
 	InitLOD("cube", "sphere", "cubeSG");
@@ -61,6 +65,8 @@ void CEnemy::Init(void)
 	// Initialise the Collider
 	this->SetCollider(true);
 	this->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -.1f));
+
+	scale.Set(10.0f, 10.0f, 10.0f);
 
 	// Add to EntityManager
 	EntityManager::GetInstance()->AddEntity(this, true);
@@ -163,15 +169,15 @@ void CEnemy::Update(double dt)
 	//else if (position.z < -400.f)
 	//	target.z = position.z * -1.f;
 
-	if ((target - position).LengthSquared() < 25.0f)
-	{
-		CWaypoint *nextWaypoint = GetNextWaypoint();
-		if (nextWaypoint)
-			target = nextWaypoint->GetPosition();
-		else
-			target.SetZero();
-		std::cout << "Next target: " << target << std::endl;
-	}
+	//if ((target - position).LengthSquared() < 25.0f)
+	//{
+	//	CWaypoint *nextWaypoint = GetNextWaypoint();
+	//	if (nextWaypoint)
+	//		target = nextWaypoint->GetPosition();
+	//	else
+	//		target.SetZero();
+	//	std::cout << "Next target: " << target << std::endl;
+	//}
 }
 
 // Constrain the position within the borders
@@ -199,10 +205,11 @@ void CEnemy::Render(void)
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
 	modelStack.Scale(scale.x, scale.y, scale.z);
-	if (GetLODStatus())
-	{
-		if (theDetailLevel != NO_DETAILS)
-			RenderHelper::RenderMesh(GetLODMesh());
-	}
+	//if (GetLODStatus())
+	//{
+	//	if (theDetailLevel != NO_DETAILS)
+	//		RenderHelper::RenderMesh(GetLODMesh());
+	//}
+	RenderHelper::RenderMesh(model);
 	modelStack.PopMatrix();
 }

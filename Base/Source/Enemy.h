@@ -5,7 +5,10 @@
 
 #include <vector>
 
-class Mesh;
+#include "Mesh.h"
+#include "State\State.h"
+
+//class Mesh;
 
 class CEnemy : public GenericEntity
 {
@@ -22,6 +25,14 @@ protected:
 
 	double m_dSpeed;
 	double m_dAcceleration;
+
+	// States
+	State *m_currState;
+	State *m_nextState;
+
+	Mesh *model;
+	bool active;
+	std::string type;
 
 public:
 	CEnemy(void);
@@ -60,4 +71,19 @@ public:
 	void Constrain(void);
 	// Render
 	void Render(void);
+
+	void SetMesh(Mesh *model) { this->model = model; }
+
+	bool GetActive(void) const { return active; }
+	void SetActive(const bool active) { this->active = active; }
+
+	std::string GetType(void) const { return type; }
+	void SetType(const std::string &type) { this->type = type; }
+
+	// States
+	void SetCurrentState(State *m_currState) { this->m_currState = m_currState; }
+	void SetNextState(State *m_nextState) { this->m_nextState = m_nextState; }
+
+	State *GetCurrentState(void) { return m_currState; }
+	State *GetNextState(void) { return m_nextState; }
 };
