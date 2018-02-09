@@ -19,7 +19,6 @@
 #include "TextEntity.h"
 #include "SpriteEntity.h"
 #include "Light.h"
-#include "SkyBox/SkyBoxEntity.h"
 
 #include "SceneNode.h"
 #include "SceneGraph.h"
@@ -165,10 +164,11 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateCube("cubea", Color(1.0f, 1.0f, 1.0f), 1.0f);
 	CSpatialPartition::GetInstance()->SetMesh("cubea");
 	//Portal = new GenericEntity();
-	Portal = Create::Entity("PORTAL", Vector3(0.f, 10.f, -50.f), Vector3(24.f, 24.f, 24.f));
+	Portal = Create::Entity("PORTAL", Vector3(0.f, 5.f, -50.f), Vector3(24.f, 24.f, 24.f));
 	Portal->SetCollider(true);
 	Portal->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-
+	// Create entities into the scene
+	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.f, 0.64f, 0.f), 1.f);
 	// Create entities into the scene
 	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.f, 0.64f, 0.f), 1.f);
 	// Create a Waypoint inside WaypointManager
@@ -188,13 +188,13 @@ void SceneText::Init()
 	// FSM
 	StateMachineManager::GetInstance()->AddState("Enemy", new EnemyPatrol("enemy_patrol"));
 	StateMachineManager::GetInstance()->AddState("Enemy", new EnemyChase("enemy_chase"));
-	StateMachineManager::GetInstance()->AddGameObject(theEnemy);
 	StateMachineManager::GetInstance()->DefaultState(theEnemy);
+	StateMachineManager::GetInstance()->AddGameObject(theEnemy);
 
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
-	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
+	theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 											 "SKYBOX_LEFT", "SKYBOX_RIGHT",
 											 "SKYBOX_TOP", "SKYBOX_BOTTOM");
 
@@ -213,6 +213,8 @@ void SceneText::Init()
 	textObj[0]->SetText("HELLO WORLD");
 
 	countDown = 5.f;
+	groundEntity->SetIsDone(false);
+	Portal->SetIsDone(false);
 }
 
 void SceneText::Update(double dt)
@@ -220,10 +222,7 @@ void SceneText::Update(double dt)
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
 	StateMachineManager::GetInstance()->Update(dt);
-	/*if (true)
-	{
 
-	}*/
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
 	if(KeyboardController::GetInstance()->IsKeyDown('1'))
 		glEnable(GL_CULL_FACE);
@@ -307,10 +306,9 @@ void SceneText::Update(double dt)
 	if (KeyboardController::GetInstance()->IsKeyReleased('E'))
 	{
 		CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
-
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('V'))
-	{	
+	{
 		GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
 		CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
 		//Math::RandFloatMinMax()
@@ -320,7 +318,7 @@ void SceneText::Update(double dt)
 		mix->SetSteps(0, 100);
 		DummyHNode->SetUpdateTransformation(mix);
 		
-		//DummyHNode->ApplyTranslate(0.0f, 10.f, 0.f);
+		
 		GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
 		CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
 		DummyBNode->ApplyTranslate(0.f, -1.f, 0.f);
@@ -353,13 +351,19 @@ void SceneText::Update(double dt)
 		CSceneNode *LANode = BodyNode->AddChild(Test2);
 		CSceneNode *RANode = BodyNode->AddChild(Test3);
 	}
+	
+	if ((playerInfo->GetPos() - Portal ->GetPosition()).LengthSquared() <50.0f)
+	{
+		cout << "Loading Game2" << endl;
+		SceneManager::GetInstance()->SetActiveScene("GameState2");
+	}
 
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);
 
 	//camera.Update(dt); // Can put the camera into an entity rather than here (Then we don't have to write this)
 
-	GraphicsManager::GetInstance()->UpdateLights(dt);
+	//GraphicsManager::GetInstance()->UpdateLights(dt);
 
 	// Update the 2 text object values. NOTE: Can do this in their own class but i'm lazy to do it now :P
 	// Eg. FPSRenderEntity or inside RenderUI for LightEntity

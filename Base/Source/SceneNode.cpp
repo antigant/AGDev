@@ -225,6 +225,9 @@ bool CSceneNode::DeleteAllChildren(void)
 	vector <CSceneNode*>::iterator it = theChildren.begin();
 	while (it != theChildren.end())
 	{
+		if (!*it)
+			continue;
+
 		if ((*it)->DeleteAllChildren())
 		{
 			cout << "CSceneNode::DeleteChild: Delete child nodes." << endl;

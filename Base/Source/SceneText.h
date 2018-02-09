@@ -10,6 +10,7 @@
 #include "MatrixStack.h"
 #include "GenericEntity.h"
 #include "Enemy.h"
+#include "SkyBox/SkyBoxEntity.h"
 
 class ShaderProgram;
 class SceneManager;
@@ -39,7 +40,7 @@ private:
 	GenericEntity* Portal;
 	GenericEntity* theCube;
 	CEnemy *theEnemy;
-	
+	SkyBoxEntity *theSkyBox;
 	float countDown;
 	//static SceneText* sInstance; // The pointer to the object that gets registered
 };

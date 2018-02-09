@@ -15,7 +15,7 @@ function SavePlayerPos(outputString, overwrite)
 end
 
 -- Player input
-moveForward  = "W"
+moveForward  = "Q"
 moveBackward = "S"
 moveLeft     = "A"
 moveRight    = "D"
@@ -31,7 +31,4 @@ look_down    = "0x28"
 -- Player's position
 stage2_start = {0,0,20}
 stage1_start = {-11.000000,0.000000,68.000000}
-stage1_start = {-16.154190,0.000000,-3.427338}
-stage1_start = {99.186211,63.836884,-121.183517}
-stage1_start = {117.228546,0.000000,-146.202484}
-stage1_start = {224.466675,0.000000,-52.997742}
+stage1_start = {-224.277328,0.000000,-12.802730}

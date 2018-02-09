@@ -5,6 +5,8 @@ void StateMachineManager::CleanManager(void)
 {
 	for (std::multimap<std::string, State*>::iterator it = m_stateMap.begin(); it != m_stateMap.end(); ++it)
 		delete it->second;
+	if (!m_goList.empty())
+		m_goList.clear();
 	m_stateMap.clear();
 }
 

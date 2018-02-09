@@ -10,6 +10,8 @@
 #include "../WeaponInfo/GrenadeThrow.h"
 #include "../Lua/LuaInterface.h"
 
+#include "../Application.h"
+
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
 CPlayerInfo *CPlayerInfo::s_instance = 0;
@@ -532,5 +534,6 @@ void CPlayerInfo::DetachCamera()
 
 void CPlayerInfo::SavePlayerPos(void)
 {
-	CLuaInterface::GetInstance()->saveVector3Value("SavePlayerPos", start_pos, position);
+	if(Application::ended)
+		CLuaInterface::GetInstance()->saveVector3Value("SavePlayerPos", start_pos, position);
 }

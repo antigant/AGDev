@@ -31,6 +31,8 @@ public:
 	int GetWindowHeight();
 	int GetWindowWidth();
 	
+	static bool ended;
+
 private:
 	Application();
 	~Application();

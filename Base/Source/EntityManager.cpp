@@ -418,3 +418,4 @@ bool EntityManager::CheckForCollision(void)
 
 	return false;
 }
+
