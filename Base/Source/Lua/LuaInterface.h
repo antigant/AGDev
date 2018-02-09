@@ -9,6 +9,7 @@ class CLuaInterface
 protected:
 	static CLuaInterface *s_instance;
 	CLuaInterface();
+	char *file_name;
 
 public:
 	static CLuaInterface *GetInstance()
@@ -66,6 +67,10 @@ public:
 	void saveVector3Value(const char *dataType, const Vector3 value, const bool overWrite = false);
 	// Extract a field from a table
 	float GetField(const char *key);
+
+	// Set and Get file_name
+	void SetFilename(char *file_name);
+	char *GetFilename(void);
 
 	// Pointer to the Lua State
 	lua_State *theLuaState;

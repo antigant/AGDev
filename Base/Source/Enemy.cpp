@@ -19,6 +19,7 @@ CEnemy::CEnemy(void)
 	, m_nextState(NULL)
 	, active(false)
 	, type("No Type")
+	, prev_waypoint(NULL)
 {
 	listOfWaypoints.clear();
 }
@@ -212,4 +213,14 @@ void CEnemy::Render(void)
 	//}
 	RenderHelper::RenderMesh(model);
 	modelStack.PopMatrix();
+}
+
+void CEnemy::SetPreviousWaypoint(CWaypoint *waypoint)
+{
+	prev_waypoint = waypoint;
+}
+
+CWaypoint *CEnemy::GetPreviousWaypoint(void)
+{
+	return prev_waypoint;
 }

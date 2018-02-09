@@ -7,6 +7,7 @@ CLuaInterface *CLuaInterface::s_instance = 0;
 
 CLuaInterface::CLuaInterface()
 	: theLuaState(NULL)
+	, file_name("Lua//DataVariables.lua")
 {
 }
 
@@ -28,7 +29,7 @@ bool CLuaInterface::Init()
 		luaL_openlibs(theLuaState);
 
 		// 3. Load lua script
-		luaL_dofile(theLuaState, "Lua//DataVariables.lua");
+		luaL_dofile(theLuaState, file_name);
 
 		result = true;
 	}
@@ -206,4 +207,14 @@ float CLuaInterface::GetField(const char * key)
 	result = (int)lua_tonumber(theLuaState, -1);
 	lua_pop(theLuaState, 1);
 	return result;
+}
+
+void CLuaInterface::SetFilename(char *file_name)
+{
+	this->file_name = file_name;
+}
+
+char * CLuaInterface::GetFilename(void)
+{
+	return file_name;
 }

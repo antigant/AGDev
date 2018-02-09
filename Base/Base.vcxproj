@@ -39,6 +39,7 @@
     <ClCompile Include="Source\SpatialPartition\Grid.cpp" />
     <ClCompile Include="Source\SpatialPartition\SpatialPartition.cpp" />
     <ClCompile Include="Source\SpriteEntity.cpp" />
+    <ClCompile Include="Source\State\EnemyChase.cpp" />
     <ClCompile Include="Source\State\EnemyPatrol.cpp" />
     <ClCompile Include="Source\State\State.cpp" />
     <ClCompile Include="Source\State\StateMachineManager.cpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="Source\SpatialPartition\Grid.h" />
     <ClInclude Include="Source\SpatialPartition\SpatialPartition.h" />
     <ClInclude Include="Source\SpriteEntity.h" />
+    <ClInclude Include="Source\State\EnemyChase.h" />
     <ClInclude Include="Source\State\EnemyPatrol.h" />
     <ClInclude Include="Source\State\State.h" />
     <ClInclude Include="Source\State\StateMachineManager.h" />

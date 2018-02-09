@@ -33,6 +33,8 @@ protected:
 	Mesh *model;
 	bool active;
 	std::string type;
+	// previous waypoint
+	CWaypoint *prev_waypoint;
 
 public:
 	CEnemy(void);
@@ -86,4 +88,8 @@ public:
 
 	State *GetCurrentState(void) { return m_currState; }
 	State *GetNextState(void) { return m_nextState; }
+
+	// Set previous waypoint
+	void SetPreviousWaypoint(CWaypoint *waypoint);
+	CWaypoint *GetPreviousWaypoint(void);
 };
