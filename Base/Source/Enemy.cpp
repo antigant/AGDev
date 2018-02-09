@@ -164,21 +164,7 @@ void CEnemy::Update(double dt)
 	// Constain the position
 	Constrain();
 
-	// Update the target
-	//if (position.z > 400.f)
-	//	target.z = position.z * -1.f;
-	//else if (position.z < -400.f)
-	//	target.z = position.z * -1.f;
-
-	//if ((target - position).LengthSquared() < 25.0f)
-	//{
-	//	CWaypoint *nextWaypoint = GetNextWaypoint();
-	//	if (nextWaypoint)
-	//		target = nextWaypoint->GetPosition();
-	//	else
-	//		target.SetZero();
-	//	std::cout << "Next target: " << target << std::endl;
-	//}
+	
 }
 
 // Constrain the position within the borders
@@ -206,11 +192,7 @@ void CEnemy::Render(void)
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
 	modelStack.Scale(scale.x, scale.y, scale.z);
-	//if (GetLODStatus())
-	//{
-	//	if (theDetailLevel != NO_DETAILS)
-	//		RenderHelper::RenderMesh(GetLODMesh());
-	//}
+
 	RenderHelper::RenderMesh(model);
 	modelStack.PopMatrix();
 }

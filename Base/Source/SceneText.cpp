@@ -19,7 +19,6 @@
 #include "TextEntity.h"
 #include "SpriteEntity.h"
 #include "Light.h"
-#include "SkyBox/SkyBoxEntity.h"
 
 #include "SceneNode.h"
 #include "SceneGraph.h"
@@ -51,47 +50,7 @@ SceneText::~SceneText()
 
 void SceneText::Init()
 {
-	//currProg = GraphicsManager::GetInstance()->LoadShader("default", "Shader//Texture.vertexshader", "Shader//Texture.fragmentshader");
-	//
-	//// Tell the shader program to store these uniform locations
-	//currProg->AddUniform("MVP");
-	//currProg->AddUniform("MV");
-	//currProg->AddUniform("MV_inverse_transpose");
-	//currProg->AddUniform("material.kAmbient");
-	//currProg->AddUniform("material.kDiffuse");
-	//currProg->AddUniform("material.kSpecular");
-	//currProg->AddUniform("material.kShininess");
-	//currProg->AddUniform("lightEnabled");
-	//currProg->AddUniform("numLights");
-	//currProg->AddUniform("lights[0].type");
-	//currProg->AddUniform("lights[0].position_cameraspace");
-	//currProg->AddUniform("lights[0].color");
-	//currProg->AddUniform("lights[0].power");
-	//currProg->AddUniform("lights[0].kC");
-	//currProg->AddUniform("lights[0].kL");
-	//currProg->AddUniform("lights[0].kQ");
-	//currProg->AddUniform("lights[0].spotDirection");
-	//currProg->AddUniform("lights[0].cosCutoff");
-	//currProg->AddUniform("lights[0].cosInner");
-	//currProg->AddUniform("lights[0].exponent");
-	//currProg->AddUniform("lights[1].type");
-	//currProg->AddUniform("lights[1].position_cameraspace");
-	//currProg->AddUniform("lights[1].color");
-	//currProg->AddUniform("lights[1].power");
-	//currProg->AddUniform("lights[1].kC");
-	//currProg->AddUniform("lights[1].kL");
-	//currProg->AddUniform("lights[1].kQ");
-	//currProg->AddUniform("lights[1].spotDirection");
-	//currProg->AddUniform("lights[1].cosCutoff");
-	//currProg->AddUniform("lights[1].cosInner");
-	//currProg->AddUniform("lights[1].exponent");
-	//currProg->AddUniform("colorTextureEnabled");
-	//currProg->AddUniform("colorTexture");
-	//currProg->AddUniform("textEnabled");
-	//currProg->AddUniform("textColor");
-	//
-	// Tell the graphics manager to use the shader we just loaded
-	//GraphicsManager::GetInstance()->SetActiveShader("default");
+	
 
 	lights[0] = new Light();
 	GraphicsManager::GetInstance()->AddLight("lights[0]", lights[0]);
@@ -205,161 +164,16 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateCube("cubea", Color(1.0f, 1.0f, 1.0f), 1.0f);
 	CSpatialPartition::GetInstance()->SetMesh("cubea");
 	//Portal = new GenericEntity();
-	Portal = Create::Entity("PORTAL", Vector3(0.f, 10.f, -50.f), Vector3(24.f, 24.f, 24.f));
+	Portal = Create::Entity("PORTAL", Vector3(0.f, 5.f, -50.f), Vector3(24.f, 24.f, 24.f));
 	Portal->SetCollider(true);
 	Portal->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	//Portal->InitLOD("rock1", "rock2", "rock3");
-
-	/*GenericEntity *rock = Create::Entity("rock1", Vector3(-20.f, -10.f, 50.f), Vector3(4.f, 4.f, 4.f));
-	rock->SetCollider(true);
-	rock->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	rock->InitLOD("rock1", "rock2", "rock3");
-
-	GenericEntity *elephant = Create::Entity("elephant1", Vector3(-40.f, -10.f, -20.f), Vector3(5.f, 5.f, 5.f));
-	elephant->SetCollider(true);
-	elephant->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	elephant->InitLOD("elephant1", "elephant2", "elephant3");
-*/
-	//for (size_t i = 0; i < 60; i++)
-	//{
-	//int entityposX = Math::RandIntMinMax(-400, 400);
-	//int entityposZ = Math::RandIntMinMax(-400, 400);
-
-	//GenericEntity *tree = Create::Entity("tree1", Vector3(entityposX, -10.f, entityposZ), Vector3(4.f, 4.f, 4.f));
-	//tree->SetCollider(true);
-	//tree->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	//tree->InitLOD("tree1", "tree2", "tree3");
-
-	///*GenericEntity *elephant = Create::Entity("elephant1", Vector3(entityposX, -10.f, entityposZ), Vector3(5.f, 5.f, 5.f));
-	//elephant->SetCollider(true);
-	//elephant->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	//elephant->InitLOD("elephant1", "elephant2", "elephant3");*/
-	//}
+	
+	
 
 	// Create entities into the scene
 	MeshBuilder::GetInstance()->GenerateCube("cubeSG", Color(1.f, 0.64f, 0.f), 1.f);
 
-	//Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
-	//Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
-	//
-	//GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 0.0f, -20.0f));
-	//aCube->SetCollider(true);
-	//aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	//aCube->InitLOD("cube", "cone", "cubeSG");
-	////Add the pointer to this new entity to the Scene Graph
-	//CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
-	//if (theNode == NULL)
-	//	cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-
-	//GenericEntity* anotherCube = Create::Entity("cube", Vector3(-20.0f, 1.1f, -20.0f));
-	//anotherCube->SetCollider(true);
-	//anotherCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	//CSceneNode* anotherNode = theNode->AddChild(anotherCube);
-	//if (anotherNode == NULL)
-	//	cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-
-	//-----------------------------------------------------------------------------------------------------
-	// Scene Graph topic 2nd week -> for applying transformation
-	/*GenericEntity *baseCube = Create::Asset("cube", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *baseNode = CSceneGraph::GetInstance()->AddNode(base
-);
-
-	CUpdateTransformation *baseMtx = new CUpdateTransformation();
-	baseMtx->ApplyUpdate(0.01f, 0.0f, 0.0f);
-	baseMtx->SetSteps(-30, 30);
-	baseNode->SetUpdateTransformation(baseMtx);
-
-	GenericEntity *childCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *childNode = baseNode->AddChild(childCube);
-	childNode->ApplyTranslate(0.f, 1.f, 0.f);
-
-	GenericEntity *grandchildCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
-	CSceneNode *grandchildNode = childNode->AddChild(grandchildCube);
-	grandchildNode->ApplyTranslate(0.f, 0.f, 1.f);
-	CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
-	aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.f);
-	aRotateMtx->SetSteps(-120, 60);
-	grandchildNode->SetUpdateTransformation(aRotateMtx);*/
-	//***********************************************************************************Dummy Entity
-
-	//GenericEntity *DummyHead = Create::Entity("Dummy_head", Vector3(0.f, 10.f, 0.f));
-	//CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
-	//DummyHNode->ApplyTranslate(0.f, 10.f, 0.f);
-	//DummyHead->SetCollider(true);
-	//DummyHead->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	//GenericEntity *DummyBody = Create::Entity("Dummy_body", Vector3(0.f, 5.0f, 0.f));
-	//CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
-	//DummyBNode->ApplyTranslate(0.f, -1.1f, 0.f);
-	//DummyBody->SetCollider(true);
-	//DummyBody->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	////GenericEntity *Dummy_leftarm = Create::Entity("Dummy_arm", Vector3(0.f, 0.f, 0.f));
-	////CSceneNode *DummyLANode = DummyBNode->AddChild(Dummy_leftarm);
-	////DummyLANode->ApplyTranslate(-1.f, 0.f, 0.f);
-	////GenericEntity *Dummy_rightarm = Create::Entity("Dummy_arm", Vector3(0.f, 0.f, 0.f));
-	////CSceneNode *DummyRANode = DummyBNode->AddChild(Dummy_rightarm);
-	////DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
-	//CUpdateTransformation *aanotherRotateMtx = new CUpdateTransformation();
-	//aanotherRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
-	//aanotherRotateMtx->SetSteps(-120, 60);
-	////DummyRANode->SetUpdateTransformation(aRotateMtx);
-	//DummyBNode->SetUpdateTransformation(aanotherRotateMtx);
-
-
-	/*GenericEntity *HeadDummycube = Create::Entity("cube", Vector3(-10.0f, 1.1f, -20.0f));
-	HeadDummycube->SetCollider(true);
-	HeadDummycube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	CSceneNode *HeadDummyNode = CSceneGraph::GetInstance()->AddNode(HeadDummycube);
-
-	GenericEntity *BodyDummyCube = Create::Entity("cube", Vector3(-10.0f, 0.0f , -20.0f));
-	BodyDummyCube->SetCollider(true);
-	BodyDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	CSceneNode* BodyDummyNode = HeadDummyNode->AddChild(BodyDummyCube);
 	
-	GenericEntity *RightArmDummyCube = Create::Entity("cube", Vector3(-11.1f, 0.0f, -20.0f));
-	RightArmDummyCube->SetCollider(true);
-	RightArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	CSceneNode *RightArmDummyNode = BodyDummyNode->AddChild(RightArmDummyCube);
-
-	GenericEntity *LeftArmDummyCube = Create::Entity("cube", Vector3(-8.9f, 0.0f, -20.0f));
-	LeftArmDummyCube->SetCollider(true);
-	LeftArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	CSceneNode *LeftArmDummyNode = BodyDummyNode->AddChild(LeftArmDummyCube);*/
-
-
-		
-
-	//GenericEntity *childCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
-	//CSceneNode *childNode = baseNode->AddChild(childCube);
-	//childNode->ApplyTranslate(0.f, 1.f, 0.f);
-
-	//GenericEntity *grandchildCube = Create::Asset("cubeSG", Vector3(0.f, 0.f, 0.f));
-	//CSceneNode *grandchildNode = childNode->AddChild(grandchildCube);
-	//grandchildNode->ApplyTranslate(0.f, 0.f, 1.f);
-	//CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
-	//aRotateMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.f);
-	//aRotateMtx->SetSteps(-120, 60);
-	//grandchildNode->SetUpdateTransformation(aRotateMtx);
-
-	//GenericEntity* DummyB = Create::Entity("cube", Vector3(-20.0f, -1.1f, -20.0f));
-	//DummyB->SetCollider(true);
-	//DummyB->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	//CSceneNode *DummyBN = DummyN->AddChild(DummyB);
-	//GenericEntity *DummyL = Create::Entity("Dummy_arm", Vector3(-21.0f, -1.1f, -20.0f));
-	//DummyL->SetCollider(true);
-	//DummyL->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	//CSceneNode *DummyLN = DummyBN->AddChild(DummyL);
-	//
-	//GenericEntity *DummyR = Create::Entity("Dummy_arm", Vector3(-19.0f,-1.1f, -20.0f));
-	//DummyR->SetCollider(true);
-	//DummyR->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	//CSceneNode *DummyRN = DummyBN->AddChild(DummyR);
-	//DummyRANode->ApplyTranslate(1.f, 0.f, 0.f);
-	/*CUpdateTransformation *aRotateMtx = new CUpdateTransformation();
-	aRotateMtx->ApplyUpdate(1.0f, 1.0f, 0.0f, 0.0f);
-	aRotateMtx->SetSteps(-120, 60);
-	DummyRANode->SetUpdateTransformation(aRotateMtx);*/
-	//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
-	//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
 
 	// Create a Waypoint inside WaypointManager
 	int aWaypoint = CWaypointManager::GetInstance()->AddWaypoint(Vector3(10.0f, 0.0, 50.0f));
@@ -377,13 +191,13 @@ void SceneText::Init()
 
 	// FSM
 	StateMachineManager::GetInstance()->AddState("Enemy", new EnemyPatrol("enemy_patrol"));
-	StateMachineManager::GetInstance()->AddGameObject(theEnemy);
 	StateMachineManager::GetInstance()->DefaultState(theEnemy);
+	StateMachineManager::GetInstance()->AddGameObject(theEnemy);
 
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
-	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
+	theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 											 "SKYBOX_LEFT", "SKYBOX_RIGHT",
 											 "SKYBOX_TOP", "SKYBOX_BOTTOM");
 
@@ -402,6 +216,8 @@ void SceneText::Init()
 	textObj[0]->SetText("HELLO WORLD");
 
 	countDown = 5.f;
+	groundEntity->SetIsDone(false);
+	Portal->SetIsDone(false);
 }
 
 void SceneText::Update(double dt)
@@ -409,10 +225,7 @@ void SceneText::Update(double dt)
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
 	StateMachineManager::GetInstance()->Update(dt);
-	/*if (true)
-	{
 
-	}*/
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
 	if(KeyboardController::GetInstance()->IsKeyDown('1'))
 		glEnable(GL_CULL_FACE);
@@ -476,16 +289,12 @@ void SceneText::Update(double dt)
 	if (KeyboardController::GetInstance()->IsKeyDown('P'))
 	{
 		cout << "Loading EndScene" << endl;
-		//SceneManager::GetInstance()->SetActiveScene("GameState2");
-		//SceneManager::GetInstance()->Exit();
 		SceneManager::GetInstance()->SetActiveScene("EndSceneState");
 	}
 	if (KeyboardController::GetInstance()->IsKeyDown('O'))
 	{
 		cout << "Loading Game2" << endl;
 		SceneManager::GetInstance()->SetActiveScene("GameState2");
-		//SceneManager::GetInstance()->Exit();
-		//SceneManager::GetInstance()->SetActiveScene("EndSceneState");
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('M'))
 	{
@@ -499,21 +308,11 @@ void SceneText::Update(double dt)
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('E'))
 	{
-	//*weaponRNode = DummyRANode->AddChild(weapon);
-		//CSceneGraph ->GetRoot();
-	/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
-		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
+	
 		CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
-
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('V'))
 	{
-		//*weaponRNode = DummyRANode->AddChild(weapon);
-		//CSceneGraph ->GetRoot();
-		/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
-		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
-		//CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
-		//CSceneGraph::GetInstance()->GetRoot()->DetachChild(weapon);
 		
 		GenericEntity *DummyHead = Create::Asset("Dummy_head", Vector3(0.f, 0.f, 0.f));
 		CSceneNode *DummyHNode = CSceneGraph::GetInstance()->AddNode(DummyHead);
@@ -524,7 +323,7 @@ void SceneText::Update(double dt)
 		mix->SetSteps(0, 100);
 		DummyHNode->SetUpdateTransformation(mix);
 		
-		//DummyHNode->ApplyTranslate(0.0f, 10.f, 0.f);
+		
 		GenericEntity *DummyBody = Create::Asset("Dummy_body", Vector3(0.f, 0.f, 0.f));
 		CSceneNode *DummyBNode = DummyHNode->AddChild(DummyBody);
 		DummyBNode->ApplyTranslate(0.f, -1.f, 0.f);
@@ -543,25 +342,9 @@ void SceneText::Update(double dt)
 	{
 		int entityposX = Math::RandIntMinMax(-40, 40);
 		int entityposZ = Math::RandIntMinMax(-40, 40);
-		//*weaponRNode = DummyRANode->AddChild(weapon);
-		//CSceneGraph ->GetRoot();
-		/*	cout << CSceneGraph::GetInstance()->GetNumOfNode() << endl;
-		cout<<CSceneGraph::GetInstance()->theRoot << endl;*/
-		//CSceneGraph::GetInstance()->GetRoot()->PrintSelf();
-		//CSceneGraph::GetInstance()->GetRoot()->DetachChild(weapon);
-		
-		//CSceneNode *weaponRNode = CSceneGraph::GetInstance()->AddNode(weapon);
-		//cout << CSceneGraph::GetInstance()<< endl;
-		//CSceneGraph::GetInstance()->GetNode(Dummy_rightarm)->DeleteChild(weapon);
-		//CSceneGraph::GetInstance()->GetNode(weapon)->Destroy();
-		//CSceneGraph::GetInstance()->DeleteNode(*weapon);
+	
 
 		Vector3 dummypos = Vector3(entityposX, 10, entityposZ);
-		//MeshBuilder::GetInstance()->GenerateCube("Dummy_head", Color(0, 0, 0), 1.f);
-		//MeshBuilder::GetInstance()->GenerateCube("Dummy_body", Color(0, 1, 0), 1.f);
-		//MeshBuilder::GetInstance()->GenerateCube("Dummy_arm", Color(0, 0, 1), 1.f);
-
-		//TestDummy *Test = Create::Base("Dummy_head","Dummy_body","Dummy_arm","Dummy_arm", dummypos);
 
 		TestDummy *Test = Create::dummy_part("Dummy_head",dummypos);
 		TestDummy *Test1 = Create::dummy_part("Dummy_body",dummypos +Vector3(0,-1.1f,0));
@@ -574,51 +357,15 @@ void SceneText::Update(double dt)
 		CSceneNode *LANode = BodyNode->AddChild(Test2);
 		CSceneNode *RANode = BodyNode->AddChild(Test3);
 
-		//GenericEntity *weapon = Create::Asset("cone", Vector3(0.f, 0.f, 0.f));
-		//CSceneNode *weaponRNode = DummyRANode->AddChild(weapon);
-
-		/*GenericEntity *HeadDummycube = Create::Entity("cube", Vector3(entityposX, 1.1f, entityposZ));
-		HeadDummycube->SetCollider(true);
-		HeadDummycube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-		CSceneNode *HeadDummyNode = CSceneGraph::GetInstance()->AddNode(HeadDummycube);
-
-		GenericEntity *BodyDummyCube = Create::Entity("cube", Vector3(entityposX, 0.0f, entityposZ));
-		BodyDummyCube->SetCollider(true);
-		BodyDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-		CSceneNode* BodyDummyNode = HeadDummyNode->AddChild(BodyDummyCube);
-
-		GenericEntity *RightArmDummyCube = Create::Entity("cube", Vector3(entityposX -1.1f, 0.0f, entityposZ));
-		RightArmDummyCube->SetCollider(true);
-		RightArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-		CSceneNode *RightArmDummyNode = BodyDummyNode->AddChild(RightArmDummyCube);
-
-		GenericEntity *LeftArmDummyCube = Create::Entity("cube", Vector3(entityposX+1.1f, 0.0f, entityposZ));
-		LeftArmDummyCube->SetCollider(true);
-		LeftArmDummyCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-		CSceneNode *LeftArmDummyNode = BodyDummyNode->AddChild(LeftArmDummyCube);
-*/
+	
 
 	}
-	//countDown -= dt;
-	//if (countDown <= 0)
-	//{
-	//	int entityposX = Math::RandIntMinMax(-400, 400);
-	//	int entityposZ = Math::RandIntMinMax(-400, 400);
-
-	//	Vector3 dummypos = Vector3(entityposX, 10, entityposZ);
-
-	//	TestDummy *Test = Create::dummy_part("Dummy_head", dummypos);
-	//	TestDummy *Test1 = Create::dummy_part("Dummy_body", dummypos + Vector3(0, -1.1f, 0));
-	//	TestDummy *Test2 = Create::dummy_part("Dummy_arm", dummypos + Vector3(-1.1f, -1.1f, 0));
-	//	TestDummy *Test3 = Create::dummy_part("Dummy_arm", dummypos + Vector3(1.1f, -1.1f, 0));
-
-
-	//	CSceneNode *HeadNode = CSceneGraph::GetInstance()->AddNode(Test);
-	//	CSceneNode *BodyNode = HeadNode->AddChild(Test1);
-	//	CSceneNode *LANode = BodyNode->AddChild(Test2);
-	//	CSceneNode *RANode = BodyNode->AddChild(Test3);
-	//	countDown = 5.f;
-	//}
+	
+	if ((playerInfo->GetPos() - Portal ->GetPosition()).LengthSquared() <50.0f)
+	{
+		cout << "Loading Game2" << endl;
+		SceneManager::GetInstance()->SetActiveScene("GameState2");
+	}
 
 	// Update the player position and other details based on keyboard and mouse inputs
 	playerInfo->Update(dt);
@@ -681,6 +428,10 @@ void SceneText::Exit()
 	//delete lights[1];
 	GraphicsManager::GetInstance()->RemoveLight("lights[0]");
 	GraphicsManager::GetInstance()->RemoveLight("lights[1]");
+	EntityManager::GetInstance()->Destroy();
 	groundEntity->SetIsDone(true);
+	Portal->SetIsDone(true);
+	//SceneManager::GetInstance()->Exit();
+	//theSkyBox->SetIsDone(true);
 	//theSkyBox
 }
