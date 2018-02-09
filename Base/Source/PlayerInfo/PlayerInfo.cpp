@@ -31,6 +31,14 @@ CPlayerInfo::CPlayerInfo(void)
 	, keyMoveBackward('S')
 	, keyMoveLeft('A')
 	, keyMoveRight('D')
+	, reload('R')
+	, reset('I')
+	, quit(-1)
+	, jump(-1)
+	, look_up(-1)
+	, look_down(-1)
+	, look_left(-1)
+	, look_right(-1)
 {
 }
 
@@ -58,7 +66,7 @@ void CPlayerInfo::Init(void)
 	defaultUp.Set(0,1,0);
 
 	// Set the current values
-	position.Set(0, 0, 10);
+	//position.Set(0, 0, 10);
 	target.Set(0, 0, 0);
 	up.Set(0, 1, 0);
 
@@ -77,14 +85,20 @@ void CPlayerInfo::Init(void)
 	secondaryWeapon->Init();
 
 	// Initialise the custom keyboard inputs
+	CLuaInterface::GetInstance()->SetFilename("Lua//Player.lua");
 	keyMoveForward = CLuaInterface::GetInstance()->getCharValue("moveForward");
 	keyMoveBackward = CLuaInterface::GetInstance()->getCharValue("moveBackward");
 	keyMoveLeft = CLuaInterface::GetInstance()->getCharValue("moveLeft");
 	keyMoveRight = CLuaInterface::GetInstance()->getCharValue("moveRight");
-
-	float distanceSquare = CLuaInterface::GetInstance()->getDistanceSquareValue("CalculateDistanceSquare", Vector3(0.f, 0.f, 0.f), Vector3(10.f, 10.f, 10.f));
-	int a = 1000, b = 2000, c = 3000, d = 4000;
-	CLuaInterface::GetInstance()->getVariableValues("GetMinMax", a, b, c, d);
+	reload = CLuaInterface::GetInstance()->getCharValue("reload");
+	reset = CLuaInterface::GetInstance()->getCharValue("reset");
+	position = CLuaInterface::GetInstance()->getVector3Values(start_pos);
+	quit = CLuaInterface::GetInstance()->getIntValue("quit");
+	jump = CLuaInterface::GetInstance()->getIntValue("jump");
+	look_left = CLuaInterface::GetInstance()->getIntValue("look_left");
+	look_up = CLuaInterface::GetInstance()->getIntValue("look_up");
+	look_right = CLuaInterface::GetInstance()->getIntValue("look_right");
+	look_down = CLuaInterface::GetInstance()->getIntValue("look_down");
 }
 
 // Returns true if the player is on ground
@@ -335,14 +349,14 @@ void CPlayerInfo::Update(double dt)
 	}
 
 	// Rotate the view direction
-	if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT) ||
-		KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT) ||
-		KeyboardController::GetInstance()->IsKeyDown(VK_UP) ||
-		KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
+	if (KeyboardController::GetInstance()->IsKeyDown(look_left) ||
+		KeyboardController::GetInstance()->IsKeyDown(look_right) ||
+		KeyboardController::GetInstance()->IsKeyDown(look_up) ||
+		KeyboardController::GetInstance()->IsKeyDown(look_down))
 	{
 		Vector3 viewUV = (target - position).Normalized();
 		Vector3 rightUV;
-		if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT))
+		if (KeyboardController::GetInstance()->IsKeyDown(look_left))
 		{
 			float yaw = (float)m_dSpeed * (float)dt;
 			Mtx44 rotation;
@@ -354,7 +368,7 @@ void CPlayerInfo::Update(double dt)
 			rightUV.Normalize();
 			up = rightUV.Cross(viewUV).Normalized();
 		}
-		else if (KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT))
+		else if (KeyboardController::GetInstance()->IsKeyDown(look_right))
 		{
 			float yaw = (float)(-m_dSpeed * (float)dt);
 			Mtx44 rotation;
@@ -366,7 +380,7 @@ void CPlayerInfo::Update(double dt)
 			rightUV.Normalize();
 			up = rightUV.Cross(viewUV).Normalized();
 		}
-		if (KeyboardController::GetInstance()->IsKeyDown(VK_UP))
+		if (KeyboardController::GetInstance()->IsKeyDown(look_up))
 		{
 			float pitch = (float)(m_dSpeed * (float)dt);
 			rightUV = viewUV.Cross(up);
@@ -378,7 +392,7 @@ void CPlayerInfo::Update(double dt)
 			viewUV = rotation * viewUV;
 			target = position + viewUV;
 		}
-		else if (KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
+		else if (KeyboardController::GetInstance()->IsKeyDown(look_down))
 		{
 			float pitch = (float)(-m_dSpeed * (float)dt);
 			rightUV = viewUV.Cross(up);
@@ -422,14 +436,14 @@ void CPlayerInfo::Update(double dt)
 	}
 
 	// If the user presses SPACEBAR, then make him jump
-	if (KeyboardController::GetInstance()->IsKeyDown(VK_SPACE) &&
+	if (KeyboardController::GetInstance()->IsKeyDown(jump) &&
 		position.y == m_pTerrain->GetTerrainHeight(position))
 	{
 		SetToJumpUpwards(true);
 	}
 
 	// Update the weapons
-	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
+	if (KeyboardController::GetInstance()->IsKeyReleased(reload))
 	{
 		if (primaryWeapon)
 		{
@@ -514,4 +528,9 @@ void CPlayerInfo::AttachCamera(FPSCamera* _cameraPtr)
 void CPlayerInfo::DetachCamera()
 {
 	attachedCamera = nullptr;
+}
+
+void CPlayerInfo::SavePlayerPos(void)
+{
+	CLuaInterface::GetInstance()->saveVector3Value("SavePlayerPos", start_pos, position);
 }

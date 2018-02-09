@@ -96,6 +96,9 @@ public:
 	void AttachCamera(FPSCamera* _cameraPtr);
 	void DetachCamera();
 
+	void SetStartPos(char *start_pos) { this->start_pos = start_pos; }
+	void SavePlayerPos(void);
+
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
 	Vector3 position, target, up;
@@ -123,4 +126,13 @@ private:
 	char keyMoveBackward;
 	char keyMoveLeft;
 	char keyMoveRight;
+	char reload;
+	char reset;
+	unsigned quit;
+	unsigned jump;
+	// camera
+	unsigned look_up, look_down, look_left, look_right;
+
+	// take in file name
+	char *start_pos;
 };

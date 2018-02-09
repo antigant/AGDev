@@ -58,7 +58,7 @@ void CEnemy::Init(void)
 	minBoundary.Set(-1.f, -1.f, -1.f);
 
 	// Set speed
-	m_dSpeed = 10.0;
+	m_dSpeed = 20.0;
 
 	// Initialised the LOD meshes
 	InitLOD("cube", "sphere", "cubeSG");

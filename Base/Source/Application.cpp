@@ -111,6 +111,7 @@ void Application::Init()
 	CLuaInterface::GetInstance()->Init();
 
 	// Get the OpenGL resolution
+	CLuaInterface::GetInstance()->SetFilename("Lua//DataVariables.lua");
 	m_window_width = CLuaInterface::GetInstance()->getIntValue("width");
 	m_window_height = CLuaInterface::GetInstance()->getIntValue("height");
 

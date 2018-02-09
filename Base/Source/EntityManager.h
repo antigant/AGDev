@@ -23,6 +23,8 @@ public:
 	bool MarkForDeletion(EntityBase *_existingEntity);
 
 	void SetSpatialPartition(CSpatialPartition *theSpatialPartition);
+	// Clean EntityManager when exiting the scene.
+	void Clean();
 private:
 	EntityManager();
 	virtual ~EntityManager();

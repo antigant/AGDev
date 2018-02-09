@@ -144,6 +144,16 @@ void EntityManager::SetSpatialPartition(CSpatialPartition * theSpatialPartition)
 	this->theSpatialPartition = theSpatialPartition;
 }
 
+void EntityManager::Clean()
+{
+	while (!entityList.empty())
+	{
+		delete entityList.back();
+		entityList.back() = NULL;
+		entityList.pop_back();
+	}
+}
+
 // Constructor
 EntityManager::EntityManager()
 	: theSpatialPartition(NULL)

@@ -16,6 +16,7 @@ EnemyChase::~EnemyChase()
 void EnemyChase::Enter(CEnemy *go)
 {
 	chase_time = 0.0f;
+	std::cout << "Chasing player!" << std::endl;
 }
 
 void EnemyChase::Update(double dt, CEnemy *go)
@@ -29,6 +30,8 @@ void EnemyChase::Update(double dt, CEnemy *go)
 
 void EnemyChase::Exit(CEnemy *go)
 {
+	std::cout << "Going back to patrol" << std::endl;
+
 	CWaypoint *nextWaypoint = go->GetPreviousWaypoint();
 	if (nextWaypoint)
 		go->SetTarget(nextWaypoint->GetPosition());

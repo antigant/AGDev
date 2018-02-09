@@ -198,6 +198,16 @@ void CLuaInterface::saveVector3Value(const char *dataType, const Vector3 value, 
 	lua_call(theLuaState, 2, 0);
 }
 
+void CLuaInterface::saveVector3Value(const char *function_name, const char * dataType, const Vector3 value, const bool overWrite)
+{
+	lua_getglobal(theLuaState, function_name);
+	char outputString[80];
+	sprintf(outputString, "%s = {%f,%f,%f}\n", dataType, value.x, value.y, value.z);
+	lua_pushstring(theLuaState, outputString);
+	lua_pushinteger(theLuaState, overWrite);
+	lua_call(theLuaState, 2, 0);
+}
+
 // Extract a field from a table
 float CLuaInterface::GetField(const char * key)
 {
@@ -212,6 +222,10 @@ float CLuaInterface::GetField(const char * key)
 void CLuaInterface::SetFilename(char *file_name)
 {
 	this->file_name = file_name;
+
+	theLuaState = lua_open();
+	luaL_openlibs(theLuaState);
+	luaL_dofile(theLuaState, file_name);
 }
 
 char * CLuaInterface::GetFilename(void)

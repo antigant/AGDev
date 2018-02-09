@@ -2,7 +2,7 @@
 #include "StateMachineManager.h"
 #include "../PlayerInfo/PlayerInfo.h"
 
-#define CHASE_DISTANCE 40.0f
+#define CHASE_DISTANCE 50.0f
 
 EnemyPatrol::EnemyPatrol(const std::string & stateID)
 	: State(stateID)

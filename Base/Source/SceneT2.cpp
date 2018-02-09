@@ -116,6 +116,7 @@ void SceneT2::Init()
 
 	// Create the playerinfo instance, which manages all information about the player
 	playerInfo = CPlayerInfo::GetInstance();
+	playerInfo->SetStartPos("stage2_start");
 	playerInfo->Init();
 
 	// Create and attach the camera to the scene
@@ -353,6 +354,7 @@ void SceneT2::Init()
 	// Initialise the enemy
 	theEnemy = new CEnemy();
 	theEnemy->Init();
+	theEnemy->SetMesh(MeshBuilder::GetInstance()->GetMesh("cube"));
 
 	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
@@ -636,8 +638,10 @@ void SceneT2::Exit()
 #endif
 	}
 
+	// Clean Entity Manager
+	EntityManager::GetInstance()->Clean();
+
 	// Delete the lights
 	GraphicsManager::GetInstance()->RemoveLight("lights[0]");
 	GraphicsManager::GetInstance()->RemoveLight("lights[1]");
-	groundEntity->SetIsDone(true);
 }
